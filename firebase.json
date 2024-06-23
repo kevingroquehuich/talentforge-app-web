@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "dist/talentforge-app/browser",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

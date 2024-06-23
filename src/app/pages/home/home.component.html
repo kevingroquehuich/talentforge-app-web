@@ -10,7 +10,7 @@
       <!-- Slide 1 -->
       <div class="carousel-item active">
         <video autoplay muted loop class="video-background">
-          <source src="/videos/background.mp4" type="video/mp4">
+          <source src="videos/background.mp4" type="video/mp4">
           Tu navegador no soporta el elemento de video.
         </video>
         <div class="carousel-container">
@@ -73,7 +73,7 @@
 
       <div class="row">
 
-        <div class="col-lg-5 align-items-stretch video-box" style='background-image: url("/img/why-us.jpg");'
+        <div class="col-lg-5 align-items-stretch video-box" style='background-image: url("img/why-us.jpg");'
           data-aos="zoom-in" data-aos-delay="100">
           <a href="" class="venobox play-btn mb-4" data-vbtype="video" data-autoplay="true"></a>
         </div>
@@ -94,7 +94,7 @@
             <ul>
               <li>
                 <a data-bs-toggle="collapse" class="collapse" data-bs-target="#accordion-list-1"><span>01</span>
-                  Nuestra Evolución <i class="bx bx-chevron-down icon-show"></i><i
+                  Nuestra Evolución <i class="bi bi-chevron-down icon-show"></i><i
                     class="bx bx-chevron-up icon-close"></i></a>
                 <div id="accordion-list-1" class="collapse show" data-bs-parent=".accordion-list">
                   <p>
@@ -108,7 +108,7 @@
 
               <li>
                 <a data-bs-toggle="collapse" data-bs-target="#accordion-list-2" class="collapsed"><span>02</span>
-                  Nuestros Logros <i class="bx bx-chevron-down icon-show"></i><i
+                  Nuestros Logros <i class="bi bi-chevron-down icon-show"></i><i
                     class="bx bx-chevron-up icon-close"></i></a>
                 <div id="accordion-list-2" class="collapse" data-bs-parent=".accordion-list">
                   <p>
@@ -121,7 +121,7 @@
 
               <li>
                 <a data-bs-toggle="collapse" data-bs-target="#accordion-list-3" class="collapsed"><span>03</span>
-                  Innovación y Éxito Sostenido <i class="bx bx-chevron-down icon-show"></i><i
+                  Innovación y Éxito Sostenido <i class="bi bi-chevron-down icon-show"></i><i
                     class="bx bx-chevron-up icon-close"></i></a>
                 <div id="accordion-list-3" class="collapse" data-bs-parent=".accordion-list">
                   <p>
@@ -154,7 +154,7 @@
       <div class="row">
         <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
           <div class="icon-box">
-            <app-lottie-animation [animationPath]="'/lottie/search_talent.json'" />
+            <app-lottie-animation [animationPath]="'lottie/search_talent.json'" height="250px"/>
             <h4><a href="">Gestión de talento</a></h4>
             <p>Ofrecemos servicios de consultoría en la gestión de talento, reclutamiento y retención del personal
               clave para el crecimiento de tu empresa.</p>
@@ -163,7 +163,7 @@
 
         <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
           <div class="icon-box">
-            <app-lottie-animation [animationPath]="'/lottie/org_dev.json'" />
+            <app-lottie-animation [animationPath]="'lottie/org_dev.json'" height="250px"/>
             <h4><a href="">Desarrollo organizacional</a></h4>
             <p>Nuestros expertos en recursos humanos te brindarán asesoría en el desarrollo de estructuras
               organizativas efectivas y en la implementación de estrategias para el crecimiento sostenible de tu
@@ -173,7 +173,7 @@
 
         <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="300">
           <div class="icon-box">
-            <app-lottie-animation [animationPath]="'/lottie/training.json'" />
+            <app-lottie-animation [animationPath]="'lottie/training.json'" height="250px"/>
             <h4><a href="">Capacitación empresarial</a></h4>
             <p>Diseñamos programas de capacitación a medida para potenciar el talento y habilidades de tu equipo,
               impulsando el desarrollo y la productividad de tu empresa.</p>
@@ -200,39 +200,25 @@
 
         <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
           <div class="count-box">
-            <i class="bi bi-clock"></i>
-            <span data-purecounter-start="0" data-purecounter-end="10" data-purecounter-duration="1"
-              class="purecounter"></span>
-            <p>Años de <strong>Experiencia</strong></p>
+            <app-count-up [target]="10" icon="bi bi-clock" description="Años de <strong>Experiencia</strong>"/>
           </div>
         </div>
 
         <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
           <div class="count-box">
-            <i class="bi bi-building"></i>
-            <span data-purecounter-start="0" data-purecounter-end="50" data-purecounter-duration="1"
-              class="purecounter"></span>
-            <p><strong>Empresas</strong> asesoradas</p>
+            <app-count-up [target]="50" icon="bi bi-building" description="<strong>Empresas</strong> asesoradas"/>
           </div>
         </div>
 
         <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
           <div class="count-box">
-            <i class="bi bi-people"></i>
-            <span data-purecounter-start="0" data-purecounter-end="1463" data-purecounter-duration="1"
-              class="purecounter"></span>
-            <p><strong>Profesionales</strong> asesorados</p>
+            <app-count-up [target]="1463" icon="bi bi-people" description="Profesionales</strong> asesorados"/>
           </div>
         </div>
 
         <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
           <div class="count-box">
-            <i class="bi bi-speedometer"></i>
-            <span data-purecounter-start="0" data-purecounter-end="95" data-purecounter-duration="1"
-              class="purecounter">
-              <p>%</p>
-            </span>
-            <p>Índice de<strong>satisfacción</strong></p>
+            <app-count-up [target]="95" icon="bi bi-speedometer" description="Índice de<strong>satisfacción</strong>"/>
           </div>
         </div>
 
@@ -254,7 +240,7 @@
 
         <div class="col-xl-3 col-lg-4 col-md-6">
           <div class="member" data-aos="zoom-in" data-aos-delay="100">
-            <img src="/img/team/team-1.jpg" class="img-fluid" alt="">
+            <img src="img/team/team-1.jpg" class="img-fluid" alt="">
             <div class="member-info">
               <div class="member-info-content">
                 <h4>Walter White</h4>
@@ -272,7 +258,7 @@
 
         <div class="col-xl-3 col-lg-4 col-md-6" data-wow-delay="0.1s">
           <div class="member" data-aos="zoom-in" data-aos-delay="200">
-            <img src="/img/team/team-2.jpg" class="img-fluid" alt="">
+            <img src="img/team/team-2.jpg" class="img-fluid" alt="">
             <div class="member-info">
               <div class="member-info-content">
                 <h4>Sarah Jhonson</h4>
@@ -290,7 +276,7 @@
 
         <div class="col-xl-3 col-lg-4 col-md-6" data-wow-delay="0.2s">
           <div class="member" data-aos="zoom-in" data-aos-delay="300">
-            <img src="/img/team/team-3.jpg" class="img-fluid" alt="">
+            <img src="img/team/team-3.jpg" class="img-fluid" alt="">
             <div class="member-info">
               <div class="member-info-content">
                 <h4>William Anderson</h4>
@@ -308,7 +294,7 @@
 
         <div class="col-xl-3 col-lg-4 col-md-6" data-wow-delay="0.3s">
           <div class="member" data-aos="zoom-in" data-aos-delay="400">
-            <img src="/img/team/team-4.jpg" class="img-fluid" alt="">
+            <img src="img/team/team-4.jpg" class="img-fluid" alt="">
             <div class="member-info">
               <div class="member-info-content">
                 <h4>Amanda Jepson</h4>

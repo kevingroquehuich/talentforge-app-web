@@ -10,7 +10,8 @@ import { AnimationOptions, LottieComponent } from 'ngx-lottie';
 })
 export class LottieAnimationComponent implements OnChanges {
 
-  @Input() animationPath: string = ""; // Parámetro de entrada para la ruta del archivo JSON
+  @Input() animationPath: string = ''; // Parámetro de entrada para la ruta del archivo JSON
+  @Input() height: string = '';
 
   options: AnimationOptions = {
     path: '', // Inicialmente vacío, se actualizará en ngOnChanges

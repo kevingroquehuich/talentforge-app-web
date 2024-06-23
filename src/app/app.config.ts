@@ -5,12 +5,27 @@ import player from 'lottie-web';
 
 
 import { routes } from './app.routes';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getAuth, provideAuth } from '@angular/fire/auth';
+import { getAnalytics, provideAnalytics, ScreenTrackingService, UserTrackingService } from '@angular/fire/analytics';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { getDatabase, provideDatabase } from '@angular/fire/database';
+import { getMessaging, provideMessaging } from '@angular/fire/messaging';
+import { getStorage, provideStorage } from '@angular/fire/storage';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }), 
+    provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideLottieOptions({ player: () => player }),
     provideCacheableAnimationLoader(),
+    provideFirebaseApp(() => initializeApp({ "projectId": "talentforge-project-v2", "appId": "1:618509182447:web:9c756dba584d2adcd1421a", "storageBucket": "talentforge-project-v2.appspot.com", "apiKey": "AIzaSyDNCXGlAQOrgWKvs22wiM8R-UXYfzX2kn0", "authDomain": "talentforge-project-v2.firebaseapp.com", "messagingSenderId": "618509182447" })),
+    provideAuth(() => getAuth()),
+    provideAnalytics(() => getAnalytics()),
+    ScreenTrackingService, UserTrackingService,
+    provideFirestore(() => getFirestore()),
+    provideDatabase(() => getDatabase()),
+    provideMessaging(() => getMessaging()),
+    provideStorage(() => getStorage()),
   ]
 };
