@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
   templateUrl: './psychological.component.html',
   styleUrl: './psychological.component.scss'
 })
-export class PsychologicalComponent {
+export default class PsychologicalComponent {
 
 }
