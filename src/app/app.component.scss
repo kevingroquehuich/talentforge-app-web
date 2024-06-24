@@ -1,0 +1,27 @@
+df-messenger {
+    --df-messenger-bot-message: #e0e0e0;
+    --df-messenger-user-message: #ff9377;
+    --df-messenger-button-titlebar-color: #ffa188;
+    --df-messenger-font-family: 'Arial, sans-serif';
+    --df-messenger-send-icon: #ffa188;
+
+}
+
+/* Ajustar el tamaño del icono del chat */
+df-messenger .df-messenger-icon-holder {
+    height: 50px;
+    width: 50px;
+}
+
+/* Ajustar el color del fondo del icono del chat */
+df-messenger .df-messenger-icon {
+    background-color: #ffa188;
+}
+
+df-messenger .df-messenger-chat {
+    border-radius: 10px !important;
+}
+
+df-messenger .df-messenger-input {
+    border-radius: 5px !important;
+}
