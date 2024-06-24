@@ -2,6 +2,8 @@ import { Routes } from '@angular/router';
 import AboutComponent from './pages/about/about.component';
 import OurServicesComponent from './pages/our-services/our-services.component';
 import { authGuard } from './auth.guard';
+import { PsychologicalComponent } from './pages/surveys/psychological/psychological.component';
+import { OrganizationalComponent } from './pages/surveys/organizational/organizational.component';
 
 export const routes: Routes = [
     {
@@ -24,6 +26,14 @@ export const routes: Routes = [
         component: OurServicesComponent,
         canActivate: [authGuard]
         //loadComponent: () => import('./pages/our-services/our-services.component'),
+    },
+    {
+        path: 'psychological',
+        component: PsychologicalComponent
+    }, 
+    {
+        path: 'organizational',
+        component: OrganizationalComponent
     },
     {
         path: '**',

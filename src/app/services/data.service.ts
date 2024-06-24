@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Firestore, addDoc, collection, getDocs, query } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, User } from "firebase/auth";
+import { doc, setDoc } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
+
 
   constructor(public firestore: Firestore, private router: Router) {
     const auth = getAuth();
@@ -29,6 +31,7 @@ export class DataService {
         const user = userCredential.user;
         console.log('user sign in', user);
         console.log('token', user.getIdToken());
+        this.router.navigate(['/home'])
 
       })
       .catch((error) => {
@@ -42,14 +45,30 @@ export class DataService {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed up 
-        const user = userCredential.user;
+        const user: User = userCredential.user;
         console.log('user created', user);
-        // ...
+        this.router.navigate(['/home'])
+
+
+        /*if (user) {
+          this.saveDataUserInFirestore(user);
+        } */
+        
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
       });
+  }
+
+  async saveDataUserInFirestore(user: User) {
+    const userRef = await addDoc(collection(this.firestore, 'users/' + user.uid ), {
+      displayname: user.displayName,
+      email: user.email,
+      profileImage: "https://cdn.pixabay.com/photo/2017/06/13/12/54/profile-2398783_640.png"
+
+    })
+    console.log("Document written with ID: ", userRef.id);
   }
 
   async signInWithGoogle() {
