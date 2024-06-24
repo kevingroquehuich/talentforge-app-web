@@ -4,6 +4,8 @@ import OurServicesComponent from './pages/our-services/our-services.component';
 import { authGuard } from './auth.guard';
 import { PsychologicalComponent } from './pages/surveys/psychological/psychological.component';
 import { OrganizationalComponent } from './pages/surveys/organizational/organizational.component';
+import { ContactComponent } from './pages/contact/contact.component';
+import { CoursesComponent } from './pages/courses/courses.component';
 
 export const routes: Routes = [
     {
@@ -34,6 +36,14 @@ export const routes: Routes = [
     {
         path: 'organizational',
         component: OrganizationalComponent
+    },
+    {
+        path: 'contact',
+        component: ContactComponent
+    },
+    {
+        path: 'courses',
+        component: CoursesComponent
     },
     {
         path: '**',
