@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-header',
@@ -10,4 +11,9 @@ import { RouterModule } from '@angular/router';
 })
 export class HeaderComponent {
 
+  constructor(public dataService: DataService) {}
+
+  async onLogout() {
+    await this.dataService.logOut();
+  }
 }

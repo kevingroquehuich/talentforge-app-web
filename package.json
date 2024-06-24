@@ -24,6 +24,7 @@
     "aos": "^2.3.4",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
+    "firebase": "^10.12.2",
     "leaflet": "^1.9.4",
     "lottie-web": "^5.12.2",
     "ngx-lottie": "^11.0.2",

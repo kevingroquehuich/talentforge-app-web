@@ -1,29 +1,23 @@
 <main id="main">
 
-  <!-- ======= Breadcrumbs ======= -->
-  <section id="breadcrumbs" class="breadcrumbs">
-    <div class="container">
-
-      <ol>
-        <li><a href="index.html">Inicio</a></li>
-        <li>Servicios</li>
-      </ol>
-    </div>
-  </section><!-- End Breadcrumbs -->
-
   <!-- ======= Title Section ======= -->
-   <section id="services" class="services">
-    <div class="container" data-aos="fade-up">
-      <div class="section-title">
-        <h2>Bienvenido</h2>
-        <p>¡Transforma tu Empresa con TalentForge!</p>
-      </div>
-      <div>
-        <h4>¡Bienvenido a TalentForge, tu socio en la transformación de la gestión de recursos humanos! Descubre cómo nuestros servicios pueden llevar a tu empresa al siguiente nivel.</h4>
-        <app-lottie-animation animationPath="lottie/launched.json" height="40rem"/>
+  <div class="main-banner">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 align-self-center">
+          <div class="header-text">
+            <h6>Bienvenido</h6>
+            <h2>¡Transforma tu Empresa con TalentForge!</h2>
+            <h4>¡Bienvenido a TalentForge, tu socio en la transformación de la gestión de recursos humanos! Descubre
+              cómo nuestros servicios pueden llevar a tu empresa al siguiente nivel.</h4>
+          </div>
+        </div>
+        <div class="col-lg-5 offset-lg-1">
+          <app-lottie-animation animationPath="lottie/launched.json" height="100%" />
+        </div>
       </div>
     </div>
-   </section>
+  </div>
 
   <!-- ======= Services Section ======= -->
   <section id="services" class="services">
@@ -36,24 +30,24 @@
 
       <div class="row row-cols-1 row-cols-md-2">
         @for (item of services; track item) {
-          <div class="col mb-4">
-            <div class="card" data-aos="zoom-in" data-aos-delay="100">
-              <div class="row g-0">
-                <div class="col-md-4">
-                  <app-lottie-animation animationPath="{{ item.animation }}" height="200px"></app-lottie-animation>
-                </div>
-                <div class="col-md-8">
-                  <div class="card-body d-flex flex-column h-100">
-                    <h5 class="card-subtitle">{{ item.subtitle }}</h5>
-                    <h3 class="card-title">{{ item.name }}</h3>
-                    <div class="mt-auto text-end">
-                      <button type="button" class="btn btn-info align-self-end">Leer más</button>
-                    </div>
+        <div class="col mb-4">
+          <div class="card" data-aos="zoom-in" data-aos-delay="100">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <app-lottie-animation animationPath="{{ item.animation }}" height="200px"></app-lottie-animation>
+              </div>
+              <div class="col-md-8">
+                <div class="card-body d-flex flex-column h-100">
+                  <h5 class="card-subtitle">{{ item.subtitle }}</h5>
+                  <h3 class="card-title">{{ item.name }}</h3>
+                  <div class="mt-auto text-end">
+                    <button type="button" class="btn btn-outline-info btn-lg align-self-end">Leer más</button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
         }
 
       </div>

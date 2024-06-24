@@ -19,7 +19,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideLottieOptions({ player: () => player }),
     provideCacheableAnimationLoader(),
-    provideFirebaseApp(() => initializeApp({ "projectId": "talentforge-project-v2", "appId": "1:618509182447:web:9c756dba584d2adcd1421a", "storageBucket": "talentforge-project-v2.appspot.com", "apiKey": "AIzaSyDNCXGlAQOrgWKvs22wiM8R-UXYfzX2kn0", "authDomain": "talentforge-project-v2.firebaseapp.com", "messagingSenderId": "618509182447" })),
+    provideFirebaseApp(() => initializeApp(firebaseConfig)),
     provideAuth(() => getAuth()),
     provideAnalytics(() => getAnalytics()),
     ScreenTrackingService, UserTrackingService,
@@ -28,4 +28,14 @@ export const appConfig: ApplicationConfig = {
     provideMessaging(() => getMessaging()),
     provideStorage(() => getStorage()),
   ]
+};
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDNCXGlAQOrgWKvs22wiM8R-UXYfzX2kn0",
+  authDomain: "talentforge-project-v2.firebaseapp.com",
+  projectId: "talentforge-project-v2",
+  storageBucket: "talentforge-project-v2.appspot.com",
+  messagingSenderId: "618509182447",
+  appId: "1:618509182447:web:9c756dba584d2adcd1421a"
 };

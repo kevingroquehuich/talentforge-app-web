@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import AboutComponent from './pages/about/about.component';
 import OurServicesComponent from './pages/our-services/our-services.component';
+import { authGuard } from './auth.guard';
 
 export const routes: Routes = [
     {
@@ -20,7 +21,8 @@ export const routes: Routes = [
     },
     {
         path: 'services',
-        component: OurServicesComponent
+        component: OurServicesComponent,
+        canActivate: [authGuard]
         //loadComponent: () => import('./pages/our-services/our-services.component'),
     },
     {

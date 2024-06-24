@@ -2,7 +2,7 @@
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
       <a href="index.html" class="logo d-flex align-items-center me-auto">
-        <img src="assets/img/logo.png" alt="">
+        <img src="/img/favicon.png" alt="">
         <h1 class="sitename">TalentForge</h1>
       </a>
 
@@ -23,7 +23,11 @@
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
-      <a class="btn-getstarted" href="index.html#about">Llámanos</a>
+      <a class="btn-getstarted" (click)="onLogout()">Llámanos</a>
+
+      <a class="btn-getstarted btn-circle" data-bs-toggle="modal" data-bs-target="#loginModal">
+        <i class="bi bi-person-fill"></i>
+      </a>
 
     </div>
   </header>

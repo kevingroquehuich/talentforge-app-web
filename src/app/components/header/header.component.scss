@@ -1,0 +1,24 @@
+$primary-color: #388da8;
+
+// Styling for the circular button
+.btn-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 2px solid $primary-color;
+    color: $primary-color;
+    background-color: transparent;
+
+    &:hover {
+        background-color: $primary-color;
+        color: #fff;
+    }
+
+    i {
+        margin: 0;
+    }
+}

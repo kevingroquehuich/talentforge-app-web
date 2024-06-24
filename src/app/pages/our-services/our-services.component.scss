@@ -1,0 +1,85 @@
+/* 
+---------------------------------------------
+Banner Style
+--------------------------------------------- 
+*/
+
+.main-banner {
+    background-image: url(/img/banner-bg.jpg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    padding-top: 290px;
+    padding-bottom: 240px;
+    background-color: #2a2a2a;
+  }
+  
+  .main-banner h6 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+  
+  .main-banner h2 {
+    color: #fff;
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 66px;
+    text-transform: uppercase;
+  }
+  
+  .main-banner p {
+    margin-top: 20px;
+  }
+  
+  .main-banner .buttons {
+    margin-top: 30px;
+    display: flex;
+    justify-content: start;
+  }
+  
+  .main-banner .border-button {
+    margin-right: 15px;
+  }
+  
+  .main-banner .owl-banner {
+    margin-top: -40px;
+  }
+  
+  .main-banner .owl-nav {
+    position: absolute;
+    width: 100%;
+    margin: 0 auto;
+    bottom: -76px;
+    text-align: center;
+  }
+  
+  .main-banner .owl-nav .owl-prev {
+    margin-right: 7.5px;
+  }
+  
+  .main-banner .owl-nav .owl-next {
+    margin-left: 7.5px;
+  }
+  
+  .main-banner .owl-nav .owl-prev span,
+  .main-banner .owl-nav .owl-next span  {
+    width: 46px;
+    height: 46px;
+    line-height: 46px;
+    font-size: 24px;
+    display: inline-block;
+    color: #7453fc;
+    background-color: #fff;
+    border-radius: 50%;
+    opacity: 1;
+    transition: all .3s;
+  }
+  
+  .main-banner .owl-nav .owl-prev span:hover,
+  .main-banner .owl-nav .owl-next span:hover {
+    opacity: 1;
+  }
+  
+  
