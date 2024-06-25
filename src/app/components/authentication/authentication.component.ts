@@ -19,16 +19,6 @@ export class AuthenticationComponent {
 
   constructor(private dataService: DataService) { }
 
-
-  togglePanel(panel: string) {
-    const container = document.getElementById('container');
-    if (panel === 'signUp') {
-      container?.classList.add('right-panel-active');
-    } else {
-      container?.classList.remove('right-panel-active');
-    }
-  }
-
   async onSubmit() {
     try {
       this.user = await this.dataService.signInWithEmailAndPassword(this.email, this.password);
