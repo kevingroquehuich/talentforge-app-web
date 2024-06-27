@@ -1,0 +1,24 @@
+<fieldset class="question">
+    <div class="labels">
+        {{ question.order }}. {{ question.statement }} *
+    </div>
+
+    <div class="radio-button-container">
+
+        @if (question.options) {
+            @for (item of question.options; track item) {
+                <div class="radio-button">
+                <input type="radio" class="radio-button__input" [id]="item.id" [name]="question.id" [value]="item.value">
+                <label class="radio-button__label" for="{{ item.id }}">
+                    <span class="radio-button__custom"></span>
+                    {{ item.name }}
+                </label>
+            </div>
+            }
+        } 
+        
+
+        
+    </div>
+
+</fieldset>

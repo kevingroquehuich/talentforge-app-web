@@ -5,6 +5,7 @@ import { LottieAnimationComponent } from '../../components/lottie-animation/lott
 import { CountUpComponent } from '../../components/count-up/count-up.component';
 import { AuthenticationComponent } from '../../components/authentication/authentication.component';
 import { ContactFormComponent } from '../../components/contact-form/contact-form.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,8 @@ import { ContactFormComponent } from '../../components/contact-form/contact-form
     LottieAnimationComponent, 
     CountUpComponent, 
     AuthenticationComponent,
-    ContactFormComponent
+    ContactFormComponent,
+    RouterLink
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'

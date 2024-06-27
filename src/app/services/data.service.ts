@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Firestore, addDoc, collection, getDocs, query } from '@angular/fire/firestore';
+import { Firestore } from '@angular/fire/firestore';
+//import { Firestore, addDoc, collection, getDocs, query } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, User } from "firebase/auth";
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, orderBy, setDoc, addDoc, collection, getDocs, query } from 'firebase/firestore';
+import { Observable, catchError, forkJoin, from, map, of, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +22,44 @@ export class DataService {
         localStorage.removeItem('user');
       }
     });
+  }
+
+  private handleError(error: any): never {
+    console.error('Error fetching data:', error);
+    throw error;
+  }
+
+  private fetchDocument<T>(ref: any): Observable<T> {
+    return from(getDoc(ref)).pipe(
+      map(docSnapshot => {
+        console.log('docSnapshot-->', docSnapshot); // Añadir log
+        if (docSnapshot.exists()) {
+          return { id: docSnapshot.id, ...(docSnapshot.data() as T) };
+        } else {
+          console.error('No document found -->'); // Añadir log
+          throw new Error('Document not found');
+        }
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  private fetchCollection<T>(query: any): Observable<T[]> {
+    return from(getDocs(query)).pipe(
+      map(snapshot => {
+        console.log('Snapshot size-->', snapshot.size); // Añadir log
+        if (snapshot.size > 0) {
+          return snapshot.docs.map(doc => ({ id: doc.id, ...(doc.data() as T) }));
+        } else {
+          console.error('No documents found-->'); // Añadir log
+          throw new Error('No documents found');
+        }
+      }),
+      catchError(error => {
+        console.error('Error fetching collection-->', error); // Añadir log
+        return this.handleError(error);
+      })
+    );
   }
 
   /** Authentication **/
@@ -53,7 +93,7 @@ export class DataService {
         /*if (user) {
           this.saveDataUserInFirestore(user);
         } */
-        
+
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -62,7 +102,7 @@ export class DataService {
   }
 
   async saveDataUserInFirestore(user: User) {
-    const userRef = await addDoc(collection(this.firestore, 'users/' + user.uid ), {
+    const userRef = await addDoc(collection(this.firestore, 'users/' + user.uid), {
       displayname: user.displayName,
       email: user.email,
       profileImage: "https://cdn.pixabay.com/photo/2017/06/13/12/54/profile-2398783_640.png"
@@ -110,7 +150,7 @@ export class DataService {
     })
   }
 
-  /** Services **/
+  /** SERVICES **/
 
   async getServices(): Promise<any[]> {
     const servicesRef = collection(this.firestore, 'services');
@@ -120,8 +160,62 @@ export class DataService {
   }
 
 
-  /** Questions **/
-  async getQuestions(): Promise<any[]> {
+  /*getSurveyById(id: string): Observable<any> {
+    const surveyRef = doc(this.firestore, 'organizational-survey', id);
+    return from(getDoc(surveyRef)).pipe(
+      map(docSnapshot => {
+        if (docSnapshot.exists()) {
+          return { id: docSnapshot.id, ...docSnapshot.data() };
+        } else {
+          throw new Error('Encuesta no encontrada');
+        }
+      }),
+      catchError(error => {
+        console.error('Error fetching survey:', error);
+        throw error;
+      })
+    );
+  }
+
+  getQuestions(surveyId: string): Observable<any[]> {
+    const questionsRef = collection(this.firestore, 'organizational-survey', surveyId, 'questions');
+    const questionsQuery = query(questionsRef, orderBy('order'));
+    return from(getDocs(questionsQuery)).pipe(
+      map(questionSnapshot => {
+        if (questionSnapshot.size > 0) {
+          return questionSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        } else {
+          throw new Error('No hay preguntas para esta encuesta');
+        }
+      }),
+      catchError(error => {
+        console.error('Error fetching survey:', error);
+        throw error;
+      })
+    );
+  }
+
+  getOptionsByQuestionId(surveyId: string, questionId: string): Observable<any[]> {
+    const optionsRef = collection(this.firestore, `questions/${surveyId}/questions/${questionId}/options`);
+    const optionsQuery = query(optionsRef, orderBy('order'));
+    return from(getDocs(optionsQuery)).pipe(
+      map(optionSnapshot => {
+        if (optionSnapshot.size > 0) {
+          return optionSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        } else {
+          throw new Error('No hay opciones para esta pregunta');
+        }
+      }),
+      catchError(error => {
+        console.error('Error fetching survey:', error);
+        throw error;
+      })
+    );
+  } */
+
+
+  /** QUESTIONS **/
+  /*async getQuestions(): Promise<any[]> {
     const questionSnapshot = await getDocs(query(collection(this.firestore, 'questions')));
     const questions = questionSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     return questions;
@@ -144,7 +238,7 @@ export class DataService {
         return { ...question, options: [] };
       }
     }));
-  }
+  }*/
 
 
 }

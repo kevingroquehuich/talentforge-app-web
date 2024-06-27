@@ -11,12 +11,7 @@
           <li><a routerLink="/home" routerLinkActive="active" (click)="hideMobileNav()">Inicio</a></li>
           <li><a routerLink="/about" routerLinkActive="active" (click)="hideMobileNav()">Nosotros</a></li>
           <li><a routerLink="/services" routerLinkActive="active" (click)="hideMobileNav()">Servicios</a></li>
-          <li class="dropdown" #dropdown (click)="toggleDropdown($event, dropdown)"><a><span>Encuestas</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-            <ul>
-              <li><a routerLink="surveys/psychological" routerLinkActive="active" (click)="hideMobileNav()">Psicológicas</a></li>
-              <li><a routerLink="surveys/organizational" routerLinkActive="active" (click)="hideMobileNav()">Organizacionales</a></li>
-            </ul>
-          </li>
+          <li><a routerLink="/surveys" routerLinkActive="active" (click)="hideMobileNav()">Encuestas</a></li>
           <li><a routerLink="/contact" routerLinkActive="active" (click)="hideMobileNav()">Contacto</a></li>
           <li><a routerLink="/courses" routerLinkActive="active" (click)="hideMobileNav()">Cursos</a></li>
         </ul>

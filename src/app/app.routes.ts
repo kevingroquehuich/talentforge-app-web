@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './auth.guard';
+import FormSurveyComponent from './pages/surveys/form-survey/form-survey.component';
 
 export const routes: Routes = [
     {
@@ -24,6 +25,10 @@ export const routes: Routes = [
     {
         path: 'surveys',
         loadChildren: () => import('./pages/surveys/surveys.module').then((m) => m.SurveysModule)
+    },
+    {
+        path: 'surveys/:id',
+        component: FormSurveyComponent
     },
     {
         path: 'contact',

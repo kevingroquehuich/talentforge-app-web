@@ -5,16 +5,13 @@ import { RouterModule, Routes } from "@angular/router";
 const routes: Routes = [
     {
         path: '',
+        loadComponent: () => import('./psychological/psychological.component'),
         children: [
             {
-                path: 'psychological',
-                loadComponent: () => import('./psychological/psychological.component')
-            },
-            {
-                path: 'organizational',
-                loadComponent: () => import('./organizational/organizational.component')
+                path: 'form',
+                loadComponent: () => import('./form-survey/form-survey.component')
             }
-        ],
+        ], 
     }
 ]
 

@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
-import { CardServicesComponent } from '../../components/card-services/card-services.component';
 import { LottieAnimationComponent } from '../../components/lottie-animation/lottie-animation.component';
 
 @Component({
   selector: 'app-our-services',
   standalone: true,
-  imports: [CardServicesComponent, LottieAnimationComponent],
+  imports: [LottieAnimationComponent],
   templateUrl: './our-services.component.html',
   styleUrl: './our-services.component.scss'
 })
 export default class OurServicesComponent implements OnInit {
 
-  constructor(public data: DataService) {}
   services: any;
+
+  constructor(public data: DataService) {}
 
   ngOnInit(): void {
     this.getservices();

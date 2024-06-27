@@ -59,18 +59,6 @@ export class HeaderComponent implements OnInit{
     }
   }
 
-  toggleDropdown(event: Event, dropdown: HTMLElement) {
-    event.preventDefault();
-    dropdown.classList.toggle('active');
-    const ul = dropdown.querySelector('ul');
-    if (dropdown.classList.contains('active')) {
-      this.renderer.setStyle(ul, 'display', 'block');
-    } else {
-      this.renderer.setStyle(ul, 'display', 'none');
-    }
-    event.stopImmediatePropagation();
-  }
-
   async onLogout() {
     await this.dataService.logOut();
   }
