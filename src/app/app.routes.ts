@@ -39,6 +39,10 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/courses/courses.component')
     },
     {
+        path: 'dashboard',
+        loadComponent: () => import('./pages/dashboard/dashboard.component')
+    },
+    {
         path: '**',
         redirectTo: 'home',
     }
