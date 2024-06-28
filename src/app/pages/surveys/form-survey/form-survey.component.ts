@@ -1,29 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { BreadcrumbsComponent } from '../../../components/breadcrumbs/breadcrumbs.component';
-import { ActivatedRoute } from '@angular/router';
-import { QuestionSurveyComponent } from '../../../components/question-survey/question-survey.component';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SurveyService } from '../../../services/survey.service';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-form-survey',
   standalone: true,
-  imports: [BreadcrumbsComponent, QuestionSurveyComponent, ReactiveFormsModule],
+  imports: [BreadcrumbsComponent, ReactiveFormsModule],
   templateUrl: './form-survey.component.html',
   styleUrl: './form-survey.component.scss'
 })
 export default class FormSurveyComponent implements OnInit{
-
   surveyForm: FormGroup = new FormGroup({});
   survey: any;
-  questions: any[] = [];
+  questionsWithOptions: any[] = [];
 
 
   constructor(
     private route: ActivatedRoute, 
     private dataService: SurveyService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) {
+  }
+
+  ngOnInit(): void {
+
     this.surveyForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -32,9 +35,6 @@ export default class FormSurveyComponent implements OnInit{
       jobCategory: ['student', Validators.required],
       questions: this.fb.array([])
     });
-  }
-
-  ngOnInit(): void {
 
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
@@ -44,44 +44,62 @@ export default class FormSurveyComponent implements OnInit{
 
           this.dataService.getQuestions(id).subscribe(
             (questions) => {
-              this.questions = questions;
-              this.buildForm();
+              this.questionsWithOptions = questions;
 
-              this.questions.forEach(q => {
+              this.questionsWithOptions.forEach(q => {
+                
                 this.dataService.getQuestionOptions(id, q.id).subscribe (
                   (options) => {
                     q.options = options;
                   },
                   error => console.error('Error fetching options:', error)
                 )
-              })
+
+              });
+
+              this.surveyForm.setControl('questions', this.fb.array(this.loadQuestion(this.questionsWithOptions)));
+
             }
           )
-
         },
         (error) => console.error('Error fetching survey:', error)
       ); 
     } 
+
   }
 
+  get questionsFormArray() {
+    return this.surveyForm.get('questions') as FormArray;
+  }
+  
+  loadQuestion(questions: any) {
+    return questions.map((question: any) => this.createQuestionsFormGroup(question))
+  }
+
+  createQuestionsFormGroup(question: any) {
+    return this.fb.group({
+      id: [question.id],
+      question: [question.statement, Validators.required],
+      order: [question.order],
+      answer: ['', Validators.required]
+    })
+  } 
+  
 
   buildForm() {
-    this.questions.forEach(question => {
+    this.questionsWithOptions.forEach(question => {
       this.surveyForm.addControl(question.id, this.fb.control(null));
     });
   }
 
   onSubmit() {
 
-    const formData = this.surveyForm.value;
-    console.log('Respuestas', formData)
-
-
     if (this.surveyForm.valid) {
       const formData = this.surveyForm.value;
 
       // Mapear el formulario a un formato que Firestore espera
-      /*const dataToSave = {
+      const dataToSave = {
+        typeSurveyId: this.survey.id,
         name: formData.name,
         email: formData.email,
         age: formData.age,
@@ -89,26 +107,24 @@ export default class FormSurveyComponent implements OnInit{
         jobCategory: formData.jobCategory,
         questions: formData.questions.map((question: any) => ({
           id: question.id,
-          selectedOption: question.selectedOption
+          selectedOption: question.answer
         }))
       };
-      console.log('Respuestas-dentro', formData)
-      console.log('DataToSave-dentro', dataToSave)*/
 
+      console.log('DataToSave-dentro', dataToSave)
       
-      // Guardar las respuestas en Firestore usando el servicio PreguntasService
-      /*this.preguntasService.guardarRespuestas(respuestas).then(
+      this.dataService.saveSurveyResponse(this.survey.id, dataToSave).then(
         () => {
           console.log('Respuestas guardadas correctamente en Firestore.');
-          // Puedes resetear el formulario aquí si lo deseas
-          this.preguntasForm.reset();
+          this.surveyForm.reset();
+          this.router.navigate(['/home']);
         },
         (error) => {
           console.error('Error al guardar las respuestas:', error);
         }
-      ); */
+      ); 
     } else {
-      console.error('Formulario no válido. Revise los campos.');
+      console.error('Formulario no válido. Por favor complete correctamente todos los campos.');
     }
   }
 

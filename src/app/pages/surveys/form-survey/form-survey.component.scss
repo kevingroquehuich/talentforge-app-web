@@ -157,14 +157,7 @@
     margin-top: 32px;
 }
 
-.labels {
-    display: block;
-    margin-bottom: 1%;
-    font-size: 1.1em;
-    font-weight: 550;
-    color: #000;
-    letter-spacing: 0.5px;
-}
+
 
 .radio-button-container {
     display: flex;
@@ -217,7 +210,7 @@
   
   .radio-button__input:checked + .radio-button__label {
     color: #ed502e;
-  }
+  } 
   
   .radio-button__label:hover .radio-button__custom {
     transform: scale(1.2);

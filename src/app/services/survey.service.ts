@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Firestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { collection, doc, getDoc, getDocs, orderBy, query, setDoc } from 'firebase/firestore';
+import { addDoc, collection, doc, getDoc, getDocs, orderBy, query, setDoc } from 'firebase/firestore';
 import { Observable, catchError, from, map } from 'rxjs';
 
 @Injectable({
@@ -77,5 +77,11 @@ export class SurveyService {
     const optionsRef = collection(this.firestore, `organizational-survey/${surveyId}/questions/${questionId}/options`);
     const optionsQuery = query(optionsRef, orderBy('value'));
     return this.fetchCollection(optionsQuery);
+  }
+
+  async saveSurveyResponse(surveyId: string, response: any): Promise<void> {
+     await addDoc(collection(this.firestore, `organizational-survey/${surveyId}/responses`), {
+      ...response
+    });
   }
 }

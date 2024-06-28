@@ -57,39 +57,34 @@
               </label>
             </fieldset>
 
+            <ng-container formArrayName="questions">
 
-            @for (question of questions; track question) {
-              <!-- <app-question-survey [question]="item"/> -->
-              <fieldset class="question" [formGroup]="surveyForm">
-                <div class="labels">
-                    {{ question.order }}. {{ question.statement }} *
-                </div>
-            
-                <div class="radio-button-container">
-            
-                    @for (option of question.options; track option) {
-                        <ng-container>
-                            <div class="radio-button">
-                                <input
-                                    type="radio" 
-                                    class="radio-button__input" 
-                                    [formControlName]="question.id"
-                                    [name]="question.id"
-                                    [id]="option.id"  
-                                    [value]="option.value">
-                                <label class="radio-button__label" [for]="option.id">
-                                    <span class="radio-button__custom"></span>
-                                    {{ option.name }}
-                                </label>
-                            </div>
-                        </ng-container>
-                    }
-            
-                </div>
-            
-            </fieldset>
-            }
-            
+              @for (question of questionsFormArray.controls; track question; let index = $index) {
+                 <fieldset class="question" [formGroupName]="index">
+                  <div class="labels">
+                      {{ questionsWithOptions[index].order }}. {{ questionsWithOptions[index].statement }} *
+                  </div>
+              
+                  <div class="radio-button-container">
+                      @for (option of questionsWithOptions[index].options; track option) {
+                              <div class="radio-button">
+                                  <input
+                                      type="radio" 
+                                      class="radio-button__input" 
+                                      formControlName="answer"
+                                      [id]="option.id"  
+                                      [value]="option.value">
+                                  <label class="radio-button__label" [for]="option.id">
+                                      <span class="radio-button__custom"></span>
+                                      {{ option.name }}
+                                  </label>
+                              </div>    
+                      }
+              
+                  </div>
+              </fieldset>
+              }
+            </ng-container>
             <button id="submit" type="submit" class="btn">Enviar Formulario</button>
           </form>
         </div>
