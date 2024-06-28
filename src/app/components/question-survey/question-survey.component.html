@@ -1,24 +1,27 @@
-<fieldset class="question">
+<fieldset class="question" [formGroup]="surveyForm">
     <div class="labels">
         {{ question.order }}. {{ question.statement }} *
     </div>
 
     <div class="radio-button-container">
 
-        @if (question.options) {
-            @for (item of question.options; track item) {
+        @for (option of question.options; track option) {
+            <ng-container>
                 <div class="radio-button">
-                <input type="radio" class="radio-button__input" [id]="item.id" [name]="question.id" [value]="item.value">
-                <label class="radio-button__label" for="{{ item.id }}">
-                    <span class="radio-button__custom"></span>
-                    {{ item.name }}
-                </label>
-            </div>
-            }
-        } 
-        
+                    <input
+                        type="radio" 
+                        class="radio-button__input" 
+                        [name]="question.id"
+                        [id]="option.id"  
+                        [value]="option.value">
+                    <label class="radio-button__label" [for]="option.id">
+                        <span class="radio-button__custom"></span>
+                        {{ option.name }}
+                    </label>
+                </div>
+            </ng-container>
+        }
 
-        
     </div>
 
 </fieldset>
