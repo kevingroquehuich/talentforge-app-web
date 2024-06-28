@@ -45,7 +45,7 @@
         color: transparent !important;
     }
 
-    input:-ms-input-placeholder {
+    input:state(ms-input-placeholder) {
         color: transparent !important;
     }
 

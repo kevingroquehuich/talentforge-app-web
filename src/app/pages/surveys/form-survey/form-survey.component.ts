@@ -23,11 +23,18 @@ export default class FormSurveyComponent implements OnInit{
     private route: ActivatedRoute, 
     private dataService: SurveyService,
     private fb: FormBuilder
-  ) {}
+  ) {
+    this.surveyForm = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      age: ['', [Validators.required, Validators.min(8), Validators.max(112)]],
+      gender: ['male', Validators.required],
+      jobCategory: ['student', Validators.required],
+      questions: this.fb.array([])
+    });
+  }
 
   ngOnInit(): void {
-
-    this.surveyForm = this.fb.group({});
 
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
@@ -74,7 +81,7 @@ export default class FormSurveyComponent implements OnInit{
       const formData = this.surveyForm.value;
 
       // Mapear el formulario a un formato que Firestore espera
-      const dataToSave = {
+      /*const dataToSave = {
         name: formData.name,
         email: formData.email,
         age: formData.age,
@@ -86,7 +93,7 @@ export default class FormSurveyComponent implements OnInit{
         }))
       };
       console.log('Respuestas-dentro', formData)
-      console.log('DataToSave-dentro', dataToSave)
+      console.log('DataToSave-dentro', dataToSave)*/
 
       
       // Guardar las respuestas en Firestore usando el servicio PreguntasService

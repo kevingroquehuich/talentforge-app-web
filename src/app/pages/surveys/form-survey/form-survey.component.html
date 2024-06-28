@@ -15,27 +15,27 @@
             <fieldset>
               <label for="name" id="name-label">
                 Nombres Completos *
-                <input class="" type="text" id="name" name="name" placeholder="Enter your name (required)" required />
+                <input formControlName="name" class="" type="text" id="name" name="name" placeholder="Enter your name (required)" required />
               </label>
             </fieldset>
             <fieldset>
               <label for="email" id="email-label">
                 Email *
-                <input class="" type="email" id="email" name="email" placeholder="Enter your email (required)"
+                <input formControlName="email" class="" type="email" id="email" name="email" placeholder="Enter your email (required)"
                   required />
               </label>
             </fieldset>
             <fieldset>
               <label for="number" id="number-label">
                 Edad *
-                <input class="" type="number" id="number" name="number" min="8" max="112"
+                <input formControlName="age" class="" type="number" id="number" name="number" min="8" max="112"
                   placeholder="Enter you age (required)" required />
               </label>
             </fieldset>
             <fieldset>
               <label for="dropdown">
                 Género *
-                <select id="dropdown" name="dropdown" class="m-t-xs">
+                <select formControlName="gender" id="dropdown" name="dropdown" class="m-t-xs">
                   <option value="male" selected>Masculino</option>
                   <option value="female">Femenino</option>
                   <option value="notSaying">Prefiero no decirlo</option>
@@ -47,7 +47,7 @@
             <fieldset>
               <label for="dropdown">
                 Categoría de puesto*
-                <select id="dropdown" name="dropdown" class="m-t-xs">
+                <select formControlName="jobCategory" id="dropdown" name="dropdown" class="m-t-xs">
                   <option value="student" selected>Estudiante</option>
                   <option value="ftLob">Trabajo de tiempo completo</option>
                   <option value="ftLearner">Estudiante de tiempo completo</option>
