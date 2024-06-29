@@ -21,7 +21,7 @@
               desarrollar y maximizar su verdadero potencial. Con soluciones personalizadas y un enfoque humano,
               estamos aquí para impulsar su crecimiento y éxito. Gracias por confiar en nosotros para ser parte de su
               viaje hacia la excelencia.</p>
-            <a href="#services" class="btn-get-started animate__animated animate__fadeInUp scrollto">Ver servicios</a>
+            <a routerLink="/services" class="btn-get-started animate__animated animate__fadeInUp scrollto">Ver servicios</a>
           </div>
         </div>
       </div>
@@ -60,7 +60,7 @@
             Nuestro enfoque personalizado y orientado a resultados nos distingue, permitiéndonos crear un impacto
             positivo en organizaciones de diversos sectores.
           </p>
-          <a href="#" class="btn-learn-more">Aprender más</a>
+          <a routerLink="/about" class="btn-learn-more">Aprender más</a>
         </div>
       </div>
 
@@ -280,29 +280,7 @@
         </div>
 
         <div class="col-lg-6">
-          <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-            <div class="row">
-              <div class="col-md-6 form-group">
-                <input type="text" name="name" class="form-control" id="name" placeholder="Nombres completos" required>
-              </div>
-              <div class="col-md-6 form-group mt-3 mt-md-0">
-                <input type="email" class="form-control" name="email" id="email" placeholder="Ingrese su correo"
-                  required>
-              </div>
-            </div>
-            <div class="form-group mt-3">
-              <input type="text" class="form-control" name="subject" id="subject" placeholder="Asunto" required>
-            </div>
-            <div class="form-group mt-3">
-              <textarea class="form-control" name="message" rows="5" placeholder="Mensaje" required></textarea>
-            </div>
-            <div class="my-3">
-              <div class="loading">Cargando</div>
-              <div class="error-message"></div>
-              <div class="sent-message">Tu mensaje ha sido enviado. ¡Gracias!</div>
-            </div>
-            <div class="text-center"><button type="submit">Enviar Mensaje</button></div>
-          </form>
+          <app-contact-form/>
         </div>
 
       </div>

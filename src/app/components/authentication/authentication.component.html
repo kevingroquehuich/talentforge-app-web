@@ -1,46 +1,62 @@
-<div class="container" id="container">
-    <div class="form-container sign-up-container">
-      <form (submit)="onRegister()">
-        <h1>Crear cuenta</h1>
-        <div class="social-container">
-            <a class="social"><i class="bi bi-facebook"></i></a>
-            <a class="social"><i class="fbi bi-google" (click)="onSignInWithGoogle()"></i></a>
-            <a class="social"><i class="bi bi-linkedin"></i></a>
-        </div>
-        <span>or use your email for registration</span>
-        <input type="email" [(ngModel)]="email" name="email" class="form-control" placeholder="Email"  required/>
-        <input type="password" [(ngModel)]="password" name="password" class="form-control" placeholder="Password" required/>
-        <input type="password" placeholder="Password" />
-        <button type="submit">Sign Up</button>
-      </form>
+<div class="container">
+  <input type="checkbox" id="flip">
+  <div class="cover">
+    <div class="front">
+      <img src="img/bg/background-login.jpg" alt="">
     </div>
-    <div class="form-container sign-in-container">
-      <form (submit)="onSubmit()">
-        <h1>Inicia sesión</h1>
-        <div class="social-container">
-          <a href="#" class="social"><i class="bi bi-facebook"></i></a>
-          <a href="#" class="social"><i class="fbi bi-google"></i></a>
-          <a href="#" class="social"><i class="bi bi-linkedin"></i></a>
-        </div>
-        <span>or use your account</span>
-        <input type="email" [(ngModel)]="email" name="email" class="form-control" placeholder="Email"  required/>
-        <input type="password" [(ngModel)]="password" name="password" class="form-control" placeholder="Password" required/>
-        <a href="#">Forgot your password?</a>
-        <button type="submit">Sign In</button>
-      </form>
+    <div class="back">
+      <img class="backImg" src="img/bg/background-login.jpg" alt="">
     </div>
-    <div class="overlay-container">
-      <div class="overlay">
-        <div class="overlay-panel overlay-left">
-          <h1>Welcome Back!</h1>
-          <p>To keep connected with us please login with your personal info</p>
-          <button class="ghost" id="signIn" (click)="togglePanel('signIn')">Sign In</button>
-        </div>
-        <div class="overlay-panel overlay-right">
-          <h1>Hello, Friend!</h1>
-          <p>Enter your personal details and start journey with us</p>
-          <button class="ghost" id="signUp" (click)="togglePanel('signUp')">Sign Up</button>
-        </div>
+  </div>
+  <div class="forms">
+    <div class="form-content">
+      <div class="login-form">
+        <div class="title">Inicia sesión</div>
+        <form (submit)="onSubmit()">
+          <div class="input-boxes">
+            <div class="input-box">
+              <i class="bi bi-at"></i>
+              <input type="email" [(ngModel)]="email" name="email" class="form-control" placeholder="Ingrese su correo"
+                required />
+            </div>
+            <div class="input-box">
+              <i class="bi bi-lock"></i>
+              <input type="password" [(ngModel)]="password" name="password" class="form-control"
+                placeholder="Ingrese su contraseña" required />
+            </div>
+            <div class="text"><a href="#">Olvidó su contraseña?</a></div>
+            <div class="button input-box">
+              <input type="submit" value="Iniciar sesión">
+            </div>
+            <div class="text sign-up-text">¿No tienes una cuenta? <label for="flip">Regístrate ahora</label></div>
+          </div>
+        </form>
+      </div>
+      <div class="signup-form">
+        <div class="title">Regístrate</div>
+        <form (submit)="onRegister()">
+          <div class="input-boxes">
+            <div class="input-box">
+              <i class="bi bi-person"></i>
+              <input type="text" placeholder="Ingresa sus nombres" required>
+            </div>
+            <div class="input-box">
+              <i class="bi bi-at"></i>
+              <input type="email" [(ngModel)]="email" name="email" class="form-control" placeholder="Ingrese su correo"
+                required />
+            </div>
+            <div class="input-box">
+              <i class="bi bi-lock"></i>
+              <input type="password" [(ngModel)]="password" name="password" class="form-control"
+                placeholder="Ingrese su contraseña" required />
+            </div>
+            <div class="button input-box">
+              <input type="submit" value="Registrar">
+            </div>
+            <div class="text sign-up-text">¿Ya tienes una cuenta? <label for="flip">Inicia sesión ahora</label></div>
+          </div>
+        </form>
       </div>
     </div>
   </div>
+</div>

@@ -1,0 +1,113 @@
+*{
+  margin:0px;
+  padding:0px;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(to right, #8e9eab, #eef2f3);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  gap: 30px; 
+}
+
+.card-wrap {
+  position: relative;
+  width: 300px;
+  background: #fff;
+  border-radius: 20px;
+  border: 5px solid #fff;
+  overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  cursor: pointer;
+  transition: all .2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-wrap:hover {
+  transform: scale(1.1);
+}
+
+.card-header {
+  height: 220px;
+  width: 100%;
+  background: linear-gradient(to bottom left, #f12711, #f5af19);
+  border-radius: 100% 0% 100% 0% / 0% 50% 50% 100%;
+  display: grid;
+  place-items: center;
+}
+
+.card-header i {
+  color: #fff;
+  font-size: 72px;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto;
+  flex: 1;
+}
+
+.card-title {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 16px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  color: #3e5055;
+  font-weight: 900;
+}
+
+.card-text {
+  text-align: center;
+  font-size: 12px;
+  margin-bottom: 32px;
+  flex: 1;
+  color: #616161;
+}
+
+.card-btn {
+  border: none;
+  border-radius: 100px;
+  padding: 5px 30px;
+  color: #fff;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  background: linear-gradient(to bottom left, #f12711, #f5af19);
+  align-self: center; /* Cambio realizado aquí */
+}
+
+.card-wrap::before {
+  content: "FREE";
+  position: absolute;
+  top: 40px; 
+  left: -60px; 
+  background: linear-gradient(to bottom left, #f12711, #f5af19);
+  color: white;
+  font-size: 16px; 
+  font-weight: bold;
+  padding-top: 40px;    /* Padding en la parte superior */
+  padding-right: 60px;  /* Padding a la derecha */
+  padding-bottom: 15px; /* Padding en la parte inferior */
+  padding-left: 50px;   /* Padding a la izquierda */
+  transform: rotate(-45deg);
+  transform-origin: left top;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end; 
+  justify-content: center; 
+}

@@ -1,0 +1,226 @@
+// Margin & Padding
+.m-b-xs {
+    margin-bottom: 2%;
+}
+
+.m-b-md {
+    margin-bottom: 10%;
+}
+
+.m-t-xs {
+    margin-top: 2%;
+}
+
+.m-t-sm {
+    margin-top: 5%;
+}
+
+// General
+* {
+    outline: 0 !important;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+  }
+
+#survey-form {
+
+    label,
+    .labels {
+        display: block;
+        margin-bottom: 2%;
+        font-size: 1.1em;
+        font-weight: 550;
+        color: #000;
+        letter-spacing: 0.5px;
+    }
+
+    input::-webkit-input-placeholder {
+        color: transparent !important;
+    }
+
+    input::-moz-placeholder {
+        color: transparent !important;
+    }
+
+    input:state(ms-input-placeholder) {
+        color: transparent !important;
+    }
+
+    input:-moz-placeholder {
+        color: transparent !important;
+    }
+
+    input,
+    select {
+        display: block;
+        width: 100%;
+        overflow: hidden;
+        outline: none;
+        border: 2px solid #333;
+    }
+
+    input {
+        margin-top: 1.5%;
+        padding: 0 0 5px 0;
+        background: transparent;
+        border: none;
+        outline: none;
+        border-bottom: 2px solid #333;
+        font-size: 1.1em;
+        font-weight: 300;
+        color: #000;
+
+        &:focus {
+            border-color: #ed502e;
+        }
+    }
+
+    [type=number] {
+        width: 45px;
+
+        &::-webkit-inner-spin-button,
+        &::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            margin: 0;
+        }
+    }
+
+    select {
+        height: 40px;
+        padding-left: 5px;
+        background-color: #fff;
+        border: 2px solid #333;
+        color: #000;
+
+        & option {
+            padding: 5px 10px;
+            font-weight: 300;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #ed502e;
+            }
+        }
+    }
+
+    .btn {
+        display: inline-block;
+        position: relative;
+        width: 100%;
+        margin: 3% 0 0 0;
+        height: 45px;
+        text-transform: uppercase;
+        text-decoration: none;
+        cursor: pointer;
+        border: 3px solid #ed502e;
+        border-radius: 0;
+        font-weight: 500;
+        font-size: 1.2em;
+        color: #ed502e;
+        text-align: center;
+        background: none;
+        transition: color 0.25s ease;
+
+        &:after {
+            position: absolute;
+            content: '';
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background-color: #ed502e;
+            transform-origin: left;
+            transition: width 0.5s ease;
+            z-index: -1;
+        }
+
+        &:hover {
+            color: #fff;
+            
+            &:after {
+                width: 100%;
+            }
+        }
+    }
+
+    fieldset {
+        margin: 5% 0 0 0;
+    }
+}
+//
+.question{
+    margin-top: 32px;
+}
+
+.radio-button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  
+  .radio-button {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .radio-button__input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .radio-button__label {
+    display: inline-block;
+    padding-left: 30px;
+    margin-bottom: 10px;
+    position: relative;
+    font-size: 1em;
+    color: #000;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .radio-button__custom {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #555;
+    transition: all 0.3s ease;
+  }
+  
+  .radio-button__input:checked + .radio-button__label .radio-button__custom {
+    background-color: #ed502e;
+    border-color: transparent;
+    transform: scale(0.8);
+    box-shadow: 0 0 20px #ed502e;
+  }
+  
+  .radio-button__input:checked + .radio-button__label {
+    color: #ed502e;
+  } 
+  
+  .radio-button__label:hover .radio-button__custom {
+    transform: scale(1.2);
+    border-color: #ed502e;
+    box-shadow: 0 0 20px #ed502e;
+  }
+  
+  
+
+// Responsive
+@media only screen and (max-width: 600px) {
+    body {
+        padding: 8% 0;
+    }
+}

@@ -4,11 +4,20 @@ import * as AOS from 'aos';
 import { LottieAnimationComponent } from '../../components/lottie-animation/lottie-animation.component';
 import { CountUpComponent } from '../../components/count-up/count-up.component';
 import { AuthenticationComponent } from '../../components/authentication/authentication.component';
+import { ContactFormComponent } from '../../components/contact-form/contact-form.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MapsComponent, LottieAnimationComponent, CountUpComponent, AuthenticationComponent],
+  imports: [
+    MapsComponent, 
+    LottieAnimationComponent, 
+    CountUpComponent, 
+    AuthenticationComponent,
+    ContactFormComponent,
+    RouterLink
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

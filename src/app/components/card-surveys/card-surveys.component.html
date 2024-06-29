@@ -1,0 +1,8 @@
+<div class="card-wrap">
+    <img src="{{ survey.image }}" alt="" class="card-header">
+    <div class="card-content">
+      <h1 class="card-title">{{ survey.name }}</h1>
+      <p class="card-text">{{ survey.description }}</p>
+      <button class="card-btn" (click)="navigateToForm(survey.id)">Inicar</button>
+    </div>
+  </div>

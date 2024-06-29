@@ -2,25 +2,21 @@
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
       <a href="index.html" class="logo d-flex align-items-center me-auto">
-        <img src="/img/favicon.png" alt="">
+        <img src="img/talentforge-icon.png" alt="">
         <h1 class="sitename">TalentForge</h1>
       </a>
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a routerLink="/home" routerLinkActive="active">Inicio</a></li>
-          <li><a routerLink="/about" routerLinkActive="active">Nosotros</a></li>
-          <li><a routerLink="/services" routerLinkActive="active">Servicios</a></li>
-          <li class="dropdown"><a><span>Encuestas</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-            <ul>
-              <li><a routerLink="/psychological">Psicológicas</a></li>
-              <li><a routerLink="/organizational">Organizacionales</a></li>
-            </ul>
-          </li>
-          <li><a routerLink="/contact" routerLinkActive="active">Contacto</a></li>
-          <li><a routerLink="/courses" routerLinkActive="active">Cursos</a></li>
+          <li><a routerLink="/home" routerLinkActive="active" (click)="hideMobileNav()">Inicio</a></li>
+          <li><a routerLink="/about" routerLinkActive="active" (click)="hideMobileNav()">Nosotros</a></li>
+          <li><a routerLink="/services" routerLinkActive="active" (click)="hideMobileNav()">Servicios</a></li>
+          <li><a routerLink="/surveys" routerLinkActive="active" (click)="hideMobileNav()">Encuestas</a></li>
+          <li><a routerLink="/contact" routerLinkActive="active" (click)="hideMobileNav()">Contacto</a></li>
+          <li><a routerLink="/courses" routerLinkActive="active" (click)="hideMobileNav()">Cursos</a></li>
+          <li><a routerLink="/dashboard" routerLinkActive="active" (click)="hideMobileNav()">Dashboard</a></li>
         </ul>
-        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list" (click)="toggleMobileNav()"></i>
       </nav>
 
       <a class="btn-getstarted" (click)="onLogout()">Llámanos</a>

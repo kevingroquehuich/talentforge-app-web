@@ -1,0 +1,96 @@
+<main id="main">
+  <app-breadcrumbs />
+
+  <section id="services" class="services">
+    <div class="container" data-aos="fade-up">
+
+      <div class="section-title">
+        <h2>Formulario de encuesta</h2>
+        <p>{{ survey.name }}</p>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 col-lg-offset-3 col-lg-6">
+          <form id="survey-form" name="survey-form" [formGroup]="surveyForm" (ngSubmit)="onSubmit()">
+            <fieldset>
+              <label for="name" id="name-label">
+                Nombres Completos *
+                <input formControlName="name" class="" type="text" id="name" name="name" placeholder="Enter your name (required)" required />
+              </label>
+            </fieldset>
+            <fieldset>
+              <label for="email" id="email-label">
+                Email *
+                <input formControlName="email" class="" type="email" id="email" name="email" placeholder="Enter your email (required)"
+                  required />
+              </label>
+            </fieldset>
+            <fieldset>
+              <label for="number" id="number-label">
+                Edad *
+                <input formControlName="age" class="" type="number" id="number" name="number" min="8" max="112"
+                  placeholder="Enter you age (required)" required />
+              </label>
+            </fieldset>
+            <fieldset>
+              <label for="dropdown">
+                Género *
+                <select formControlName="gender" id="dropdown" name="dropdown" class="m-t-xs">
+                  <option value="male" selected>Masculino</option>
+                  <option value="female">Femenino</option>
+                  <option value="notSaying">Prefiero no decirlo</option>
+                  <option value="other">Otro</option>
+                </select>
+              </label>
+            </fieldset>
+
+            <fieldset>
+              <label for="dropdown">
+                Categoría de puesto*
+                <select formControlName="jobCategory" id="dropdown" name="dropdown" class="m-t-xs">
+                  <option value="student" selected>Estudiante</option>
+                  <option value="ftLob">Trabajo de tiempo completo</option>
+                  <option value="ftLearner">Estudiante de tiempo completo</option>
+                  <option value="notSaying">Prefiero no decirlo</option>
+                  <option value="other">Otro</option>
+                </select>
+              </label>
+            </fieldset>
+
+            <ng-container formArrayName="questions">
+
+              @for (question of questionsFormArray.controls; track question; let index = $index) {
+                 <fieldset class="question" [formGroupName]="index">
+                  <div class="labels">
+                      {{ questionsWithOptions[index].order }}. {{ questionsWithOptions[index].statement }} *
+                  </div>
+              
+                  <div class="radio-button-container">
+                      @for (option of questionsWithOptions[index].options; track option) {
+                              <div class="radio-button">
+                                  <input
+                                      type="radio" 
+                                      class="radio-button__input" 
+                                      formControlName="answer"
+                                      [id]="option.id"  
+                                      [value]="option.value">
+                                  <label class="radio-button__label" [for]="option.id">
+                                      <span class="radio-button__custom"></span>
+                                      {{ option.name }}
+                                  </label>
+                              </div>    
+                      }
+              
+                  </div>
+              </fieldset>
+              }
+            </ng-container>
+            <button id="submit" type="submit" class="btn">Enviar Formulario</button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>

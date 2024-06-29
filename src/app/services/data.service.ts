@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Firestore, addDoc, collection, getDocs, query } from '@angular/fire/firestore';
+import { Firestore } from '@angular/fire/firestore';
+//import { Firestore, addDoc, collection, getDocs, query } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, User } from "firebase/auth";
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, orderBy, setDoc, addDoc, collection, getDocs, query } from 'firebase/firestore';
+import { Observable, catchError, forkJoin, from, map, of, switchMap } from 'rxjs';
+import { UserData } from '../pages/dashboard/dashboard.component';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +23,44 @@ export class DataService {
         localStorage.removeItem('user');
       }
     });
+  }
+
+  private handleError(error: any): never {
+    console.error('Error fetching data:', error);
+    throw error;
+  }
+
+  private fetchDocument<T>(ref: any): Observable<T> {
+    return from(getDoc(ref)).pipe(
+      map(docSnapshot => {
+        console.log('docSnapshot-->', docSnapshot); // Añadir log
+        if (docSnapshot.exists()) {
+          return { id: docSnapshot.id, ...(docSnapshot.data() as T) };
+        } else {
+          console.error('No document found -->'); // Añadir log
+          throw new Error('Document not found');
+        }
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  private fetchCollection<T>(query: any): Observable<T[]> {
+    return from(getDocs(query)).pipe(
+      map(snapshot => {
+        console.log('Snapshot size-->', snapshot.size); // Añadir log
+        if (snapshot.size > 0) {
+          return snapshot.docs.map(doc => ({ id: doc.id, ...(doc.data() as T) }));
+        } else {
+          console.error('No documents found-->'); // Añadir log
+          throw new Error('No documents found');
+        }
+      }),
+      catchError(error => {
+        console.error('Error fetching collection-->', error); // Añadir log
+        return this.handleError(error);
+      })
+    );
   }
 
   /** Authentication **/
@@ -53,7 +94,7 @@ export class DataService {
         /*if (user) {
           this.saveDataUserInFirestore(user);
         } */
-        
+
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -62,7 +103,7 @@ export class DataService {
   }
 
   async saveDataUserInFirestore(user: User) {
-    const userRef = await addDoc(collection(this.firestore, 'users/' + user.uid ), {
+    const userRef = await addDoc(collection(this.firestore, 'users/' + user.uid), {
       displayname: user.displayName,
       email: user.email,
       profileImage: "https://cdn.pixabay.com/photo/2017/06/13/12/54/profile-2398783_640.png"
@@ -110,7 +151,7 @@ export class DataService {
     })
   }
 
-  /** Services **/
+  /** SERVICES **/
 
   async getServices(): Promise<any[]> {
     const servicesRef = collection(this.firestore, 'services');
@@ -120,31 +161,12 @@ export class DataService {
   }
 
 
-  /** Questions **/
-  async getQuestions(): Promise<any[]> {
-    const questionSnapshot = await getDocs(query(collection(this.firestore, 'questions')));
-    const questions = questionSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    return questions;
-  }
+  /* DASHBOARD */
 
-  async getOptions(questionId: string): Promise<any[]> {
-    const optionsCollection = collection(this.firestore, `questions/${questionId}/options`);
-    const optionsSnapshot = await getDocs(optionsCollection);
-    return optionsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })).sort();
+  getResponsesSurvey(surveyId: string): Observable<any[]> {
+    const responseRef = collection(this.firestore, `organizational-survey/${surveyId}/responses`);
+    const responsesQuery = query(responseRef);
+    return this.fetchCollection<UserData>(responsesQuery);
   }
-
-  async getQuestionsWithOptions(): Promise<any[]> {
-    const questions = await this.getQuestions();
-    return Promise.all(questions.map(async question => {
-      if (question.id) {
-        const options = await this.getOptions(question.id);
-        return { ...question, options };
-      } else {
-        console.error('Question ID is undefined');
-        return { ...question, options: [] };
-      }
-    }));
-  }
-
 
 }

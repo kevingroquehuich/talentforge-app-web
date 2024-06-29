@@ -1,1 +1,37 @@
-<p>psychological works!</p>
+<main id="main">
+    <app-breadcrumbs/>
+
+    <section id="services" class="services">
+        <div class="container" data-aos="fade-up">
+    
+          <div class="section-title">
+            <h2>Encuestas</h2>
+            <p>Organizacionales</p>
+          </div>
+
+          <div class="row row-cols-md-4">
+            @for (item of organizationalSurveys; track item) {
+              <app-card-surveys [survey]="item"/>
+            }
+          </div>
+    
+        </div>
+      </section>
+
+      <section id="services" class="services">
+        <div class="container" data-aos="fade-up">
+    
+          <div class="section-title">
+            <h2>Encuestas</h2>
+            <p>Psicológicas</p>
+          </div>
+          <div class="row row-cols-md-4">
+            @for (item of psychologicalSurveys; track item) {
+              <app-card-surveys [survey]="item"/>
+            }
+          </div>
+    
+        </div>
+      </section>
+
+</main>
