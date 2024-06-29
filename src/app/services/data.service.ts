@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, User } from "firebase/auth";
 import { doc, getDoc, orderBy, setDoc, addDoc, collection, getDocs, query } from 'firebase/firestore';
 import { Observable, catchError, forkJoin, from, map, of, switchMap } from 'rxjs';
+import { UserData } from '../pages/dashboard/dashboard.component';
 
 @Injectable({
   providedIn: 'root'
@@ -160,85 +161,12 @@ export class DataService {
   }
 
 
-  /*getSurveyById(id: string): Observable<any> {
-    const surveyRef = doc(this.firestore, 'organizational-survey', id);
-    return from(getDoc(surveyRef)).pipe(
-      map(docSnapshot => {
-        if (docSnapshot.exists()) {
-          return { id: docSnapshot.id, ...docSnapshot.data() };
-        } else {
-          throw new Error('Encuesta no encontrada');
-        }
-      }),
-      catchError(error => {
-        console.error('Error fetching survey:', error);
-        throw error;
-      })
-    );
+  /* DASHBOARD */
+
+  getResponsesSurvey(surveyId: string): Observable<any[]> {
+    const responseRef = collection(this.firestore, `organizational-survey/${surveyId}/responses`);
+    const responsesQuery = query(responseRef);
+    return this.fetchCollection<UserData>(responsesQuery);
   }
-
-  getQuestions(surveyId: string): Observable<any[]> {
-    const questionsRef = collection(this.firestore, 'organizational-survey', surveyId, 'questions');
-    const questionsQuery = query(questionsRef, orderBy('order'));
-    return from(getDocs(questionsQuery)).pipe(
-      map(questionSnapshot => {
-        if (questionSnapshot.size > 0) {
-          return questionSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        } else {
-          throw new Error('No hay preguntas para esta encuesta');
-        }
-      }),
-      catchError(error => {
-        console.error('Error fetching survey:', error);
-        throw error;
-      })
-    );
-  }
-
-  getOptionsByQuestionId(surveyId: string, questionId: string): Observable<any[]> {
-    const optionsRef = collection(this.firestore, `questions/${surveyId}/questions/${questionId}/options`);
-    const optionsQuery = query(optionsRef, orderBy('order'));
-    return from(getDocs(optionsQuery)).pipe(
-      map(optionSnapshot => {
-        if (optionSnapshot.size > 0) {
-          return optionSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        } else {
-          throw new Error('No hay opciones para esta pregunta');
-        }
-      }),
-      catchError(error => {
-        console.error('Error fetching survey:', error);
-        throw error;
-      })
-    );
-  } */
-
-
-  /** QUESTIONS **/
-  /*async getQuestions(): Promise<any[]> {
-    const questionSnapshot = await getDocs(query(collection(this.firestore, 'questions')));
-    const questions = questionSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    return questions;
-  }
-
-  async getOptions(questionId: string): Promise<any[]> {
-    const optionsCollection = collection(this.firestore, `questions/${questionId}/options`);
-    const optionsSnapshot = await getDocs(optionsCollection);
-    return optionsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })).sort();
-  }
-
-  async getQuestionsWithOptions(): Promise<any[]> {
-    const questions = await this.getQuestions();
-    return Promise.all(questions.map(async question => {
-      if (question.id) {
-        const options = await this.getOptions(question.id);
-        return { ...question, options };
-      } else {
-        console.error('Question ID is undefined');
-        return { ...question, options: [] };
-      }
-    }));
-  }*/
-
 
 }
