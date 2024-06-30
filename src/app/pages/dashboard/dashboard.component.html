@@ -36,10 +36,16 @@
             <td mat-cell *matCellDef="let row"> {{row.jobCategory}} </td>
           </ng-container>
 
+          <!-- Date Column -->
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> FECHA </th>
+            <td mat-cell *matCellDef="let row"> {{row.date}} </td>
+          </ng-container>
+
           <!-- Fruit Column -->
           <ng-container matColumnDef="typeSurvey">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> TIPO DE ENCUESTA </th>
-            <td mat-cell *matCellDef="let row"> {{row.typeSurveyId}} </td>
+            <td mat-cell *matCellDef="let row"> {{row.typeSurvey}} </td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -54,12 +60,13 @@
         <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
       </div>
 
-      
-      <div style="display: block;">
-        <canvas baseChart width="800" height="400" [type]="'line'" [data]="lineChartData" [options]="lineChartOptions"
-          [legend]="lineChartLegend">
+      <div style="display: block; width: 100%; height: 600px;">
+        <canvas baseChart
+                [data]="pieChartData"
+                [type]="pieChartType"
+                [options]="pieChartOptions">
         </canvas>
-      </div> 
+      </div>
 
       <div style="display: block;">
         <canvas baseChart

@@ -3,13 +3,15 @@ import { BreadcrumbsComponent } from '../../../components/breadcrumbs/breadcrumb
 import { ActivatedRoute, Router } from '@angular/router';
 import { SurveyService } from '../../../services/survey.service';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-form-survey',
   standalone: true,
   imports: [BreadcrumbsComponent, ReactiveFormsModule],
   templateUrl: './form-survey.component.html',
-  styleUrl: './form-survey.component.scss'
+  styleUrl: './form-survey.component.scss',
+  providers: [DatePipe]
 })
 export default class FormSurveyComponent implements OnInit{
   surveyForm: FormGroup = new FormGroup({});
@@ -21,7 +23,8 @@ export default class FormSurveyComponent implements OnInit{
     private route: ActivatedRoute, 
     private dataService: SurveyService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private datePipe: DatePipe
   ) {
   }
 
@@ -96,10 +99,12 @@ export default class FormSurveyComponent implements OnInit{
 
     if (this.surveyForm.valid) {
       const formData = this.surveyForm.value;
+      const currentDateAndTime = this.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss');
 
       // Mapear el formulario a un formato que Firestore espera
       const dataToSave = {
         typeSurveyId: this.survey.id,
+        typeSurvey: this.survey.name,
         name: formData.name,
         email: formData.email,
         age: formData.age,
@@ -107,8 +112,11 @@ export default class FormSurveyComponent implements OnInit{
         jobCategory: formData.jobCategory,
         questions: formData.questions.map((question: any) => ({
           id: question.id,
+          question: question.question,
+          order: question.order,
           selectedOption: question.answer
-        }))
+        })),
+        date: currentDateAndTime
       };
 
       console.log('DataToSave-dentro', dataToSave)

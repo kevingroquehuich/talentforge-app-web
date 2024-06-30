@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, User } from "firebase/auth";
 import { doc, getDoc, orderBy, setDoc, addDoc, collection, getDocs, query } from 'firebase/firestore';
 import { Observable, catchError, forkJoin, from, map, of, switchMap } from 'rxjs';
-import { UserData } from '../pages/dashboard/dashboard.component';
+import { UserSurveyResponseData } from '../models/user-survey-response-data.model';
 
 @Injectable({
   providedIn: 'root'
@@ -166,7 +166,7 @@ export class DataService {
   getResponsesSurvey(surveyId: string): Observable<any[]> {
     const responseRef = collection(this.firestore, `organizational-survey/${surveyId}/responses`);
     const responsesQuery = query(responseRef);
-    return this.fetchCollection<UserData>(responsesQuery);
+    return this.fetchCollection<UserSurveyResponseData>(responsesQuery);
   }
 
 }
