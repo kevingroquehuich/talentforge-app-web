@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { LottieAnimationComponent } from '../../components/lottie-animation/lottie-animation.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-our-services',
@@ -13,14 +14,19 @@ export default class OurServicesComponent implements OnInit {
 
   services: any;
 
-  constructor(public data: DataService) {}
+  constructor(public data: DataService, private router: Router) {}
 
   ngOnInit(): void {
-    this.getservices();
+    this.fetchServicesData();
   }
 
+  fetchServicesData() {
+    this.data.getServices().subscribe((data) => {
+      this.services = data
+    });
+  }
 
-  async getservices() {
-    this.services = await this.data.getServices();
+  navigateToDetail(id: string) {
+    this.router.navigate(['/services', id]);
   }
 }

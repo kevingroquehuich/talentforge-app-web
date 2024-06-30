@@ -23,6 +23,10 @@ export const routes: Routes = [
         //canActivate: [authGuard]
     },
     {
+        path: 'services/:id',
+        loadComponent: () => import('./pages/our-services/service-detail/service-detail.component')
+    },
+    {
         path: 'surveys',
         loadChildren: () => import('./pages/surveys/surveys.module').then((m) => m.SurveysModule)
     },

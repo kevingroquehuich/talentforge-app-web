@@ -6,6 +6,7 @@ import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, si
 import { doc, getDoc, orderBy, setDoc, addDoc, collection, getDocs, query } from 'firebase/firestore';
 import { Observable, catchError, forkJoin, from, map, of, switchMap } from 'rxjs';
 import { UserSurveyResponseData } from '../models/user-survey-response-data.model';
+import { ServiceData } from '../models/service-data.model';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +31,7 @@ export class DataService {
     throw error;
   }
 
-  private fetchDocument<T>(ref: any): Observable<T> {
+  public fetchDocument<T>(ref: any): Observable<T> {
     return from(getDoc(ref)).pipe(
       map(docSnapshot => {
         console.log('docSnapshot-->', docSnapshot); // Añadir log
@@ -45,7 +46,7 @@ export class DataService {
     );
   }
 
-  private fetchCollection<T>(query: any): Observable<T[]> {
+  public fetchCollection<T>(query: any): Observable<T[]> {
     return from(getDocs(query)).pipe(
       map(snapshot => {
         console.log('Snapshot size-->', snapshot.size); // Añadir log
@@ -153,17 +154,20 @@ export class DataService {
 
   /** SERVICES **/
 
-  async getServices(): Promise<any[]> {
+  getServices(): Observable<any[]> {
     const servicesRef = collection(this.firestore, 'services');
-    const servicesSnapshot = await getDocs(query(servicesRef));
-    const servicesList = servicesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    return servicesList;
+    return this.fetchCollection(servicesRef);
+  }
+
+  getServiceById(id: string): Observable<ServiceData> {
+    const serviceRef = doc(this.firestore, 'services', id);
+    return this.fetchDocument(serviceRef);
   }
 
 
   /* DASHBOARD */
 
-  getResponsesSurvey(surveyId: string): Observable<any[]> {
+  getResponsesSurvey(surveyId: string): Observable<UserSurveyResponseData[]> {
     const responseRef = collection(this.firestore, `organizational-survey/${surveyId}/responses`);
     const responsesQuery = query(responseRef);
     return this.fetchCollection<UserSurveyResponseData>(responsesQuery);

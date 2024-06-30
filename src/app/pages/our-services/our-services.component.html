@@ -43,7 +43,7 @@
               <p class="card__body__text">{{ item.description }}</p>
             </div>
             <div class="card__footer d-flex justify-content-center align-items-center">
-              <button type="button" class="btn btn-outline-danger">Leer más</button>
+              <button type="button" class="btn btn-outline-danger" (click)="navigateToDetail(item.id)">Leer más</button>
             </div>
           </div>
     

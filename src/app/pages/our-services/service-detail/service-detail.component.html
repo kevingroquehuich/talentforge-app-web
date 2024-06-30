@@ -1,0 +1,58 @@
+<main id="main">
+
+    <!-- ======= Services Section ======= -->
+  <!-- End Services Section -->
+
+  <div class="main-banner" [style.background-image]="'url(' + service.backgroundImage + ')'">
+    <div class="container">
+
+
+      <section id="services" class="services">
+        <div class="container" data-aos="fade-up">
+    
+          <div class="section-title">
+            <h2>{{ service.subtitle }}</h2>
+            <p>{{ service.name }}</p>
+          </div>
+    
+          <mat-card class="example-card" appearance="outlined">
+            <mat-card-header>
+              <mat-card-title>Descripción</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <p>{{service.description}}</p>
+            </mat-card-content>
+          </mat-card>
+
+          <mat-card class="example-card" appearance="outlined">
+            <mat-card-header>
+              <mat-card-title>CARACTERISTICAS</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <ul>
+                @for (item of service.characteristics; track item) {
+                  <li>{{ item }}</li>
+                }
+              </ul>
+            </mat-card-content>
+          </mat-card>
+
+          <mat-card class="example-card" appearance="outlined">
+            <mat-card-header>
+              <mat-card-title>BENEFICIOS</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <ul>
+                @for (item of service.benefits; track item) {
+                  <li>{{ item }}</li>
+                }
+              </ul>
+            </mat-card-content>
+          </mat-card>
+
+        </div>
+      </section>
+      
+    </div>
+  </div>
+</main>

@@ -15,6 +15,7 @@ export interface SurveyQuestion {
     id: string;
     order: number;
     question: string;
+    area?: string;
     selectedOption: SelectedOption;
 }
 

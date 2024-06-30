@@ -84,6 +84,7 @@ export default class FormSurveyComponent implements OnInit{
       id: [question.id],
       question: [question.statement, Validators.required],
       order: [question.order],
+      area: [question.area],
       answer: ['', Validators.required]
     })
   } 
@@ -114,6 +115,7 @@ export default class FormSurveyComponent implements OnInit{
           id: question.id,
           question: question.question,
           order: question.order,
+          area: question.area? question.area : null,
           selectedOption: question.answer
         })),
         date: currentDateAndTime
