@@ -35,7 +35,7 @@ export default class FormSurveyComponent implements OnInit{
       email: ['', [Validators.required, Validators.email]],
       age: ['', [Validators.required, Validators.min(8), Validators.max(112)]],
       gender: ['male', Validators.required],
-      jobCategory: ['student', Validators.required],
+      jobCategory: ['Directivos', Validators.required],
       questions: this.fb.array([])
     });
 
