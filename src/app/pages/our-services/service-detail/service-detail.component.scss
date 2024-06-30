@@ -1,0 +1,53 @@
+.example-card {
+    max-width: 90%;
+    margin: 0px 20px;
+    background-color: rgba(0,0,0,0.5);
+    margin-bottom: 32px;
+}
+
+
+mat-card-title {
+    width: 100%;
+    font-size: 2em;
+    text-transform: uppercase;
+    color: #fff;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #aaaaaa;
+}
+
+mat-card-content {
+    font-size: 1.25em;
+    padding-top: 20px;
+    color: #fff;
+}
+
+.main-banner {
+    //background-image: url(/img/bg-services.webp);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    padding-top: 290px;
+    padding-bottom: 240px;
+  }
+
+  .section-title h2 {
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0;
+    line-height: 1px;
+    margin: 0 0 5px 0;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #ffffff;
+    font-family: "Poppins", sans-serif;
+  }
+
+  .section-title p {
+    margin: 0;
+    margin: 0;
+    font-size: 36px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-family: "Poppins", sans-serif;
+    color: #ffffff;
+  }

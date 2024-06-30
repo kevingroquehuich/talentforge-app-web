@@ -8,15 +8,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { BreadcrumbsComponent } from '../../components/breadcrumbs/breadcrumbs.component';
 import { DataService } from '../../services/data.service';
 import { BaseChartDirective } from 'ng2-charts';
-import { ChartConfiguration, ChartOptions, ChartType } from "chart.js";
+import { ChartConfiguration, ChartData, ChartOptions, ChartType } from "chart.js";
+import { SurveyQuestion, UserSurveyResponseData } from '../../models/user-survey-response-data.model';
 
 
-export interface UserData {
-  id: string;
-  name: string;
-  jobCategory: string;
-  typeSurvey: string;
-}
 
 @Component({
   selector: 'app-dashboard',
@@ -27,16 +22,16 @@ export interface UserData {
 })
 export default class DashboardComponent implements AfterViewInit, OnInit {
 
-  displayedColumns: string[] = ['id', 'name', 'jobCategory', 'typeSurvey'];
-  dataSource!: MatTableDataSource<UserData>;
+  displayedColumns: string[] = ['id', 'name', 'jobCategory', 'date', 'typeSurvey'];
+  dataSource!: MatTableDataSource<UserSurveyResponseData>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService) {}
 
   ngOnInit(): void {
-    this.getResponsesData();
+    this.fetchSurveyResponses();
   }
 
   ngAfterViewInit() {
@@ -53,13 +48,17 @@ export default class DashboardComponent implements AfterViewInit, OnInit {
     }
   }
 
-  getResponsesData() {
+  fetchSurveyResponses() {
     this.dataService.getResponsesSurvey('lIATWyLizRdCXZxOCbjY').subscribe((data) => {
       this.dataSource = new MatTableDataSource(data);
+      this.prepareChartData(data);
+      this.barChartData = this.processDataResponses(data);;
     });
   }
 
-
+  /*========================================== */
+  /*===================CHARTS================= */
+  /*========================================== */
   public barChartOptions = {
     responsive: true,
     scales: {
@@ -72,60 +71,79 @@ export default class DashboardComponent implements AfterViewInit, OnInit {
     'Pregunta 6', 'Pregunta 7', 'Pregunta 8', 'Pregunta 9', 'Pregunta 10',
     'Pregunta 11', 'Pregunta 12', 'Pregunta 13', 'Pregunta 14', 'Pregunta 15',
     'Pregunta 16', 'Pregunta 17', 'Pregunta 18', 'Pregunta 19', 'Pregunta 20',
-  
+
   ];
+
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
-  public barChartData = [
-    { data: [5, 3, 4, 2, 1, 6, 4, 7, 2, 3, 5, 3, 6, 2, 4, 1, 3, 2, 5, 4], label: 'Totalmente en desacuerdo' },
-    { data: [10, 8, 6, 7, 3, 12, 10, 8, 7, 9, 10, 8, 7, 6, 9, 11, 12, 7, 6, 8], label: 'En desacuerdo' },
-    { data: [15, 12, 10, 13, 8, 14, 12, 13, 15, 14, 13, 10, 11, 13, 12, 15, 14, 13, 12, 10], label: 'Ni de acuerdo ni en desacuerdo' },
-    { data: [20, 18, 15, 17, 13, 18, 17, 20, 19, 18, 20, 17, 18, 20, 19, 17, 18, 15, 17, 20], label: 'De acuerdo' },
-    { data: [25, 22, 20, 23, 18, 24, 22, 23, 25, 24, 22, 25, 24, 23, 25, 22, 24, 20, 23, 25], label: 'Totalmente de acuerdo' }
-  ];
+  public barChartData: any[] = [];
   public barChartPlugins = [];
 
 
-  public lineChartData: ChartConfiguration<'line'>['data'] = {
-    labels: [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December'
-    ],
+  private processDataResponses(responses: UserSurveyResponseData[]): any[] {
+    const aggregatedData = Array(20).fill(null).map(() => ({
+      'Totalmente en desacuerdo': 0,
+      'En desacuerdo': 0,
+      'Ni de acuerdo ni en desacuerdo': 0,
+      'De acuerdo': 0,
+      'Totalmente de acuerdo': 0,
+    }));
 
-    datasets: [
-      {
-        data: [40, 45, 50, 55, 60, 65, 70, 75, 70, 60, 50, 45],
-        label: 'Angular',
-        fill: true,
-        tension: 0.5,
-        borderColor: 'black',
-        backgroundColor: 'rgba(255,0,0,0.3)'
-      },
-      {
-        data: [45, 50, 60, 70, 75, 65, 50, 60, 55, 50, 45, 45],
-        label: 'React',
-        fill: true,
-        tension: 0.5,
-        borderColor: 'black',
-        backgroundColor: 'rgba(0,255,0,0.3)'
+    responses.forEach(response => {
+      response.questions.forEach((question: SurveyQuestion, index: number) => {
+        const answer = question.selectedOption.name as keyof typeof aggregatedData[0];
+        if (aggregatedData[index][answer] !== undefined) {
+          aggregatedData[index][answer]++;
+        }
+      });
+    });
+
+    return [
+      { data: aggregatedData.map(item => item['Totalmente en desacuerdo']), label: 'Totalmente en desacuerdo' },
+      { data: aggregatedData.map(item => item['En desacuerdo']), label: 'En desacuerdo' },
+      { data: aggregatedData.map(item => item['Ni de acuerdo ni en desacuerdo']), label: 'Ni de acuerdo ni en desacuerdo' },
+      { data: aggregatedData.map(item => item['De acuerdo']), label: 'De acuerdo' },
+      { data: aggregatedData.map(item => item['Totalmente de acuerdo']), label: 'Totalmente de acuerdo' },
+    ];
+  }
+
+
+
+  public pieChartOptions: ChartConfiguration['options'] = {
+    plugins: {
+      legend: {
+        display: true,
+        position: 'right',
+        fullSize: true
       }
-    ]
-  };
-  public lineChartOptions: ChartOptions<'line'> = {
-    responsive: false
+    },
   };
 
-  public lineChartLegend = true;
+  public pieChartType: ChartType  = 'pie';
+  public pieChartData!: ChartData<'pie', number[], string | string[]>;
+
+  prepareChartData(surveyResponses: UserSurveyResponseData[]) {
+    const counts: Record<string, number> = {};
+    surveyResponses.forEach(response => {
+      response.questions.forEach(question => {
+        const optionName = question.selectedOption.name;
+        if (counts[optionName]) {
+          counts[optionName]++;
+        } else {
+          counts[optionName] = 1;
+        }
+      });
+    });
+  
+    this.pieChartData = {
+      labels: Object.keys(counts),
+      datasets:  [
+        {
+          data: Object.values(counts)
+        }
+      ]
+    }
+  }
 
 }
 
