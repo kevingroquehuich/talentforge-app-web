@@ -1,10 +1,10 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, ViewChild, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {MatExpansionModule} from '@angular/material/expansion';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import {MatCardModule} from '@angular/material/card';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { BreadcrumbsComponent } from '../../../components/breadcrumbs/breadcrumbs.component';
 import { DataService } from '../../../services/data.service';
 import { CourseData, ModuleData, SectionModuleData } from '../../../models/course-data.model';
@@ -16,15 +16,19 @@ import { CourseData, ModuleData, SectionModuleData } from '../../../models/cours
   templateUrl: './course-detail.component.html',
   styleUrl: './course-detail.component.scss'
 })
-export default class CourseDetailComponent implements OnInit{
+export default class CourseDetailComponent implements OnInit {
 
   step = signal(0);
   moduleSelected: ModuleData | null = null;
   sectionSelected: SectionModuleData | null = null;
   course: CourseData | null = null;
 
+  @ViewChild('videoPlayer') videoplayer: any;
+  public startedPlay: boolean = false;
+  public show: boolean = false;
 
-  constructor(private route: ActivatedRoute, private dataService: DataService) {}
+
+  constructor(private route: ActivatedRoute, private dataService: DataService) { }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -75,5 +79,19 @@ export default class CourseDetailComponent implements OnInit{
   // Método para marcar un módulo como completado
   markAsDone(module: ModuleData) {
     module.done = true;
+  }
+
+  pauseVideo(videoplayer: any) {
+    videoplayer.nativeElement.play();
+    // this.startedPlay = true;
+    // if(this.startedPlay == true)
+    // {
+    setTimeout(() => {
+      videoplayer.nativeElement.pause();
+      if (videoplayer.nativeElement.paused) {
+        this.show = !this.show;
+      }
+    }, 5000);
+    // }
   }
 }
