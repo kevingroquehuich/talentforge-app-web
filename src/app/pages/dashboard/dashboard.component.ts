@@ -5,38 +5,43 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import {MatCardModule} from '@angular/material/card';
 import { BreadcrumbsComponent } from '../../components/breadcrumbs/breadcrumbs.component';
 import { DataService } from '../../services/data.service';
 import { BaseChartDirective } from 'ng2-charts';
-import { ChartConfiguration, ChartData, ChartOptions, ChartType } from "chart.js";
+import { ChartConfiguration, ChartData, ChartDataset, ChartOptions, ChartType } from "chart.js";
 import { SurveyQuestion, UserSurveyResponseData } from '../../models/user-survey-response-data.model';
+import { FormsModule } from '@angular/forms';
 
 
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [BreadcrumbsComponent, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatIconModule, BaseChartDirective],
+  imports: [FormsModule, BreadcrumbsComponent, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatIconModule, BaseChartDirective, MatCardModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
 export default class DashboardComponent implements AfterViewInit, OnInit {
 
   displayedColumns: string[] = ['id', 'name', 'jobCategory', 'date', 'typeSurvey'];
-  dataSource!: MatTableDataSource<UserSurveyResponseData>;
+  dataSource = new MatTableDataSource<UserSurveyResponseData>();
+  surveyResponses: UserSurveyResponseData[] = [];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
+
   constructor(private dataService: DataService) {}
 
   ngOnInit(): void {
-    this.fetchSurveyResponses();
+   
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.fetchSurveyResponses();
   }
 
   applyFilter(event: Event) {
@@ -49,10 +54,11 @@ export default class DashboardComponent implements AfterViewInit, OnInit {
   }
 
   fetchSurveyResponses() {
-    this.dataService.getResponsesSurvey('lIATWyLizRdCXZxOCbjY').subscribe((data) => {
-      this.dataSource = new MatTableDataSource(data);
+    this.dataService.getResponsesSurvey('lIATWyLizRdCXZxOCbjY').subscribe(data => {
+      this.dataSource.data = data;
       this.prepareChartData(data);
       this.barChartData = this.processDataResponses(data);;
+      this.surveyResponses = data;
     });
   }
 
@@ -144,6 +150,11 @@ export default class DashboardComponent implements AfterViewInit, OnInit {
       ]
     }
   }
+
+
+
+
+
 
 }
 

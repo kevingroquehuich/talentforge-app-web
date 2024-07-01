@@ -1,15 +1,17 @@
 <div class="row">
   @for (course of courses; track course) {
-    <div class="card-wrap">
+
+    <div class="card_box ">
       <img src="{{ course.image }}" alt="" class="card-header">
-    
       <div class="card-content">
         <h1 class="card-title">{{ course.name }}</h1>
         <p class="card-text">{{ course.shortDesc }}</p>
         <button class="card-btn" (click)="navigateToDetail(course.id)">Únete</button>
       </div>
-    
+        <span></span>
     </div>
   }
+
+ 
 </div>
 
