@@ -1,27 +1,15 @@
 <div class="row">
-  <div class="card-wrap">
-    <img src="https://zarpar.io/wp-content/uploads/2021/11/Liderazgo-Participativo-Que-es-y-como-puede-influir-en-tu-equipo-de-trabajo.jpg" alt="" class="card-header">
-
-    <div class="card-content">
-      <h1 class="card-title">DESARROLLO DE EQUIPOS DE TRABAJO Y DIRECCIÓN PARTICIPATIVA</h1>
-      <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-      <button class="card-btn">Únete</button>
+  @for (course of courses; track course) {
+    <div class="card-wrap">
+      <img src="{{ course.image }}" alt="" class="card-header">
+    
+      <div class="card-content">
+        <h1 class="card-title">{{ course.name }}</h1>
+        <p class="card-text">{{ course.shortDesc }}</p>
+        <button class="card-btn" (click)="navigateToDetail(course.id)">Únete</button>
+      </div>
+    
     </div>
-  </div>
-  <div class="card-wrap">
-    <img src="https://victorhugomanzanilla.com/wp-content/uploads/2023/06/liderazgo-burocratico-caracteristicas.webp" alt="" class="card-header">
-    <div class="card-content">
-      <h1 class="card-title">LIDERAZGO</h1>
-      <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-      <button class="card-btn two">Únete</button>
-    </div>
-  </div>
-  <div class="card-wrap">
-    <img src="https://corporacionhiramservicioslegales.com/wp-content/uploads/2023/08/homologacion-remuneracion.jpg" alt="" class="card-header">
-    <div class="card-content">
-      <h1 class="card-title">REMUNERACIONES</h1>
-      <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-      <button class="card-btn three">Únete</button>
-    </div>
-  </div>
+  }
 </div>
+

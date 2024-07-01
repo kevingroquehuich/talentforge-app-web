@@ -43,6 +43,10 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/courses/courses.component')
     },
     {
+        path: 'courses/:id',
+        loadComponent: () => import('./pages/courses/course-detail/course-detail.component')
+    },
+    {
         path: 'dashboard',
         loadComponent: () => import('./pages/dashboard/dashboard.component')
     },
