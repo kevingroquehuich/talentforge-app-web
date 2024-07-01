@@ -3,6 +3,7 @@ import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { UserSurveyResponseData } from '../../models/user-survey-response-data.model';
 import { BaseChartDirective } from 'ng2-charts';
 import { MatCardModule } from '@angular/material/card';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-pie-chart',
@@ -13,7 +14,9 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class PieChartComponent implements OnInit{
 
-  @Input() surveyResponses: UserSurveyResponseData[] = [];
+  @Input() surveyId: string ='';
+
+  surveyResponses: UserSurveyResponseData[] = [];
 
   public pieChartOptions: ChartConfiguration['options'] = {
     plugins: {
@@ -28,9 +31,14 @@ export class PieChartComponent implements OnInit{
   public pieChartType: ChartType = 'pie';
   public pieChartData!: ChartData<'pie', number[], string | string[]>;
 
+  constructor(private dataService: DataService) { }
+
 
   ngOnInit(): void {
-    this.prepareChartData(this.surveyResponses);
+    this.dataService.getResponsesSurvey(this.surveyId).subscribe(data => {
+      this.prepareChartData(data);
+      this.surveyResponses = data;
+    });
   }
 
   prepareChartData(surveyResponses: UserSurveyResponseData[]) {
