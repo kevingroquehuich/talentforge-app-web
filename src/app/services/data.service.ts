@@ -4,9 +4,10 @@ import { Firestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, User } from "firebase/auth";
 import { doc, getDoc, orderBy, setDoc, addDoc, collection, getDocs, query } from 'firebase/firestore';
-import { Observable, catchError, forkJoin, from, map, of, switchMap } from 'rxjs';
+import { Observable, catchError, forkJoin, from, map, of, switchMap, throwError } from 'rxjs';
 import { UserSurveyResponseData } from '../models/user-survey-response-data.model';
 import { ServiceData } from '../models/service-data.model';
+import { CourseData, ModuleData, SectionModuleData } from '../models/course-data.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,9 +27,9 @@ export class DataService {
     });
   }
 
-  private handleError(error: any): never {
+  private handleError(error: any): Observable<never> {
     console.error('Error fetching data:', error);
-    throw error;
+    return throwError('Error fetching data from Firestore');
   }
 
   public fetchDocument<T>(ref: any): Observable<T> {
@@ -164,6 +165,62 @@ export class DataService {
     return this.fetchDocument(serviceRef);
   }
 
+  /* COURSES */
+  getCourses(): Observable<CourseData[]> {
+    const courseRef = collection(this.firestore, 'courses');
+    const courseQuery = query(courseRef, orderBy('order'));
+    return this.fetchCollection(courseQuery);
+  }
+
+  getCourseWithModulesAndSections(id: string): Observable<CourseData> {
+    const courseRef = doc(this.firestore, 'courses', id);
+
+    return this.fetchDocument<CourseData>(courseRef).pipe(
+      switchMap(course => {
+        const moduleRef = collection(this.firestore, `courses/${id}/modules`);
+        const modulesQuery = query(moduleRef, orderBy('order'));
+
+        return this.fetchCollection<ModuleData>(modulesQuery).pipe(
+          switchMap(modules => {
+            const moduleObservables = modules.map(module => {
+              const sectionRef = collection(this.firestore, `courses/${id}/modules/${module.id}/sections`);
+              const sectionsQuery = query(sectionRef, orderBy('order'));
+
+              return this.fetchCollection<SectionModuleData>(sectionsQuery).pipe(
+                map(sections => {
+                  module.sections = sections;
+                  return module;
+                }),
+                catchError(error => {
+                  console.error(`Error fetching sections for module ${module.id}:`, error);
+                  return throwError(`Error fetching sections for module ${module.id} from Firestore`);
+                })
+              );
+            });
+
+            return forkJoin(moduleObservables).pipe(
+              map(modulesWithSections => {
+                course.modules = modulesWithSections;
+                return course;
+              }),
+              catchError(error => {
+                console.error('Error joining module observables:', error);
+                return throwError('Error joining module observables');
+              })
+            );
+          }),
+          catchError(error => {
+            console.error('Error fetching modules:', error);
+            return throwError('Error fetching modules from Firestore');
+          })
+        );
+      }),
+      catchError(error => {
+        console.error('Error fetching course:', error);
+        return throwError('Error fetching course from Firestore');
+      })
+    );
+  }
 
   /* DASHBOARD */
 

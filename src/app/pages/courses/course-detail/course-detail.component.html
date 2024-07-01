@@ -1,0 +1,109 @@
+<main id="main">
+
+    <app-breadcrumbs />
+
+    <section class="section">
+        <div class="custom-container-90">
+
+            <div class="section-title">
+                <h2>Curso</h2>
+                <p>{{ course?.name }}</p>
+              </div>
+
+            <div class="grid-container">
+                <!-- Columna izquierda (30%) -->
+                <div class="column-left">
+
+                    <!-- Barra de progreso del curso -->
+                    <div class="progress-container">
+                        <mat-progress-bar mode="determinate" [value]="calculateProgress(course!.modules)" class="custom-progress-bar"></mat-progress-bar>
+                        <div class="progress-label">{{ calculateProgress(course!.modules) }}%</div>
+                    </div>
+                    
+                    <!-- Módulo 1 -->
+                    <mat-accordion class="example-headers-align">
+
+                        @for (module of course!.modules; track module; let index = $index) {
+                            <mat-expansion-panel [expanded]="step() === index" (opened)="setStep(index)" hideToggle  (opened)="selectModule(module)">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title> {{ module.name }} </mat-panel-title>
+                                    @if (module.done) {
+                                        <mat-icon class="check-icon">check_circle</mat-icon>
+
+                                    }
+                                </mat-expansion-panel-header>
+                                <hr class="divider">
+                                @for (section of module.sections; track section) {
+                                    <div class="center-content">
+                                        <a (click)="selectSection(section)">
+                                            <mat-icon class="material-icons">description</mat-icon>
+                                            <span>{{ section.name }}</span>
+                                        </a>
+                                    </div>
+                                    <hr class="divider">
+                                }
+
+                            </mat-expansion-panel>
+                        }
+                    </mat-accordion>
+                </div>
+
+                <!-- Columna derecha (70%) -->
+                <div class="column-right">
+
+                    <!-- Detalle del módulo seleccionado -->
+                     @if (moduleSelected) {
+                        <div class="detalle-modulo-container">
+                            
+
+                            @if (sectionSelected) {
+                                <div>
+                                    <h4>{{ sectionSelected.name }}</h4>
+                                    @if (sectionSelected.type === 'resources') {
+                                        <mat-card appearance="outlined">
+                                            <mat-card-content class="card-content">
+                                              <div class="content-wrapper">
+                                                <i class="bi bi-file-earmark-pdf-fill icon-file"></i>
+                                                <span>{{ sectionSelected.filename }}</span>
+                                              </div>
+                                              <a href="{{ sectionSelected.file }}" target="_blank" download="{{ sectionSelected.filename }}" class="download">
+                                                <i class="bi bi-download"></i> Descargar
+                                              </a>
+                                            </mat-card-content>
+                                          </mat-card>
+                                        
+
+                                          <div class="popup">
+                                            <video  controls (canplay)="pauseVideo(videoplayer)"
+                                              #videoPlayer>
+                                            <source src="{{ sectionSelected.video }}" type="video/mp4">
+                                            Your browser does not support the video tag.
+                                            </video>
+                                          </div>
+
+                                    } @else {
+                                        <p>Prueba de evaluación: {{ sectionSelected.test }}</p>
+                                    }
+                                  </div>
+                            } @else {
+                                <h2>{{ moduleSelected.name }}</h2>
+                                <img src="{{ moduleSelected.images[0] }}" alt="" class="img-detail">
+                                <p class="description">{{ moduleSelected.description }}</p>
+
+                                <div class="bottom-right-button-container">
+                                    <button mat-flat-button (click)="markAsDone(moduleSelected)">Terminar módulo</button>
+                                </div>
+                            }
+
+                        </div>
+                     } @else {
+                        <div >
+                            <p>Selecciona un módulo para ver su detalle.</p>
+                          </div>
+                     }
+                    
+                  </div>
+            </div>
+        </div>
+    </section>
+</main>

@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { CourseData } from '../../models/course-data.model';
 
 @Component({
   selector: 'app-card-services',
@@ -9,4 +11,11 @@ import { Component } from '@angular/core';
 })
 export class CardServicesComponent {
 
+  @Input() courses: CourseData[] = [];
+
+  constructor(private router: Router) {}
+
+  navigateToDetail(id: string) {
+    this.router.navigate(['/courses', id]);
+  }
 }

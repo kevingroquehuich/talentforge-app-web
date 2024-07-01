@@ -1,13 +1,9 @@
-table {
-    width: 100%;
-  }
-  
-  .mat-mdc-form-field {
-    font-size: 14px;
-    width: 30%;
-  }
-  
-  th {
-    color: #ed502e;
-    font-weight: 600;
-  }
+.mat-card-content-centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-survey-1-bar {
+  margin-top: 32px;
+}

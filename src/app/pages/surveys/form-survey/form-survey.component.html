@@ -1,8 +1,8 @@
 <main id="main">
   <app-breadcrumbs />
 
-  <section id="services" class="services">
-    <div class="container" data-aos="fade-up">
+  <section class="services">
+    <div class="container">
 
       <div class="section-title">
         <h2>Formulario de encuesta</h2>
@@ -15,14 +15,15 @@
             <fieldset>
               <label for="name" id="name-label" class="labels">
                 Nombres Completos *
-                <input formControlName="name" class="" type="text" id="name" name="name" placeholder="Enter your name (required)" required />
+                <input formControlName="name" class="" type="text" id="name" name="name"
+                  placeholder="Enter your name (required)" required />
               </label>
             </fieldset>
             <fieldset>
               <label for="email" id="email-label" class="labels">
                 Email *
-                <input formControlName="email" class="" type="email" id="email" name="email" placeholder="Enter your email (required)"
-                  required />
+                <input formControlName="email" class="" type="email" id="email" name="email"
+                  placeholder="Enter your email (required)" required />
               </label>
             </fieldset>
             <fieldset>
@@ -57,36 +58,39 @@
               </label>
             </fieldset>
 
+            <div class="instructions">
+              <h3>Instrucciones:</h3>
+            <p>
+              Seleccionar la opción que mejor describa tu nivel de acuerdo con cada afirmación, donde 1 es "Totalmente
+              en desacuerdo" y 5 es "Totalmente de acuerdo".
+            </p>
+
+            </div>
             <ng-container formArrayName="questions">
 
               @for (question of questionsFormArray.controls; track question; let index = $index) {
-                 <fieldset class="question" [formGroupName]="index">
-                  <div class="labels">
-                      {{ questionsWithOptions[index].order }}. {{ questionsWithOptions[index].statement }} *
-                  </div>
+              <fieldset class="question" [formGroupName]="index">
+                <div class="labels">
+                  {{ questionsWithOptions[index].order }}. {{ questionsWithOptions[index].statement }} *
+                </div>
 
-                  <div class="radio-tile-group">
-                      @for (option of questionsWithOptions[index].options; track option) {
-                              <div class="input-container">
-                                  <input
-                                      type="radio" 
-                                      class="radio-button"
-                                      formControlName="answer"
-                                      [id]="option.id"  
-                                      [value]="option">
-                                   <div class="radio-tile">
-                                    <div class="icon walk-icon">
-                                      <label for="walk" class="radio-tile-label">{{ option.value }}</label>
-                                    </div>
-                                   </div>
-                              </div>    
-                      }
-              
+                <div class="radio-tile-group">
+                  @for (option of questionsWithOptions[index].options; track option) {
+                  <div class="input-container">
+                    <input type="radio" class="radio-button" formControlName="answer" [id]="option.id" [value]="option">
+                    <div class="radio-tile">
+                      <div class="icon walk-icon">
+                        <label for="walk" class="radio-tile-label">{{ option.value }}</label>
+                      </div>
+                    </div>
                   </div>
+                  }
+
+                </div>
               </fieldset>
               }
             </ng-container>
-            
+
 
             <button id="submit" type="submit" class="btn">Enviar Formulario</button>
           </form>
