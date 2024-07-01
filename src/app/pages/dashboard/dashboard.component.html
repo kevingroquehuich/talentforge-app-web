@@ -18,18 +18,8 @@
         </div>
       </div>
 
-      <mat-card class="card-survey-1-bar" appearance="raised">
-        <mat-card-header>
-          <mat-card-title>CLIMA LABORAL</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <div style="display: block;">
-            <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
-              [plugins]="barChartPlugins" [legend]="barChartLegend">
-            </canvas>
-          </div>
-        </mat-card-content>
-      </mat-card>
+      <app-bar-chart [surveyId]="'lIATWyLizRdCXZxOCbjY'"/>
+
     </div>
   </section>
 
@@ -50,19 +40,8 @@
         </div>
       </div>
 
-      <mat-card class="card-survey-1-bar" appearance="raised">
-        <mat-card-header>
-          <mat-card-title>SATISFACCIÓN LABORAL</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <div style="display: block;">
-            <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
-              [plugins]="barChartPlugins" [legend]="barChartLegend">
-            </canvas>
-          </div>
-        </mat-card-content>
-      </mat-card>
-      
+      <app-bar-chart [surveyId]="'PpXbEMSDTnSaaryZnl3y'"/>
+
     </div>
   </section>
 
@@ -83,20 +62,7 @@
           <app-pie-chart [surveyId]="'M6JRYSj3qK4fF35y7U2Q'"/>
         </div>
       </div>
-
-      <mat-card class="card-survey-1-bar" appearance="raised">
-        <mat-card-header>
-          <mat-card-title>EVALUACIÓN POR DESEMPEÑO</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <div style="display: block;">
-            <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
-              [plugins]="barChartPlugins" [legend]="barChartLegend">
-            </canvas>
-          </div>
-        </mat-card-content>
-      </mat-card>
-      
+      <app-bar-chart [surveyId]="'M6JRYSj3qK4fF35y7U2Q'"/>
     </div>
   </section>
 
@@ -117,18 +83,7 @@
         </div>
       </div>
 
-      <mat-card class="card-survey-1-bar" appearance="raised">
-        <mat-card-header>
-          <mat-card-title>EVALUACIÓN POR COMPETENCIAS</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <div style="display: block;">
-            <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
-              [plugins]="barChartPlugins" [legend]="barChartLegend">
-            </canvas>
-          </div>
-        </mat-card-content>
-      </mat-card>
+      <app-bar-chart [surveyId]="'QfkopBkUkpDAvKxTOd7J'"/>
       
     </div>
   </section>
