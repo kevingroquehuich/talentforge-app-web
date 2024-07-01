@@ -7,3 +7,30 @@
 .card-survey-1-bar {
   margin-top: 32px;
 }
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 20px;
+}
+
+.column-left,
+.column-right {
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.column-left {
+  grid-column: span 1;
+}
+
+.column-right {
+  grid-column: span 1;
+}
+
+/* Media query para pantallas más grandes */
+@media (min-width: 768px) {
+  .grid-container {
+    grid-template-columns: 65% 35%;
+  }
+}

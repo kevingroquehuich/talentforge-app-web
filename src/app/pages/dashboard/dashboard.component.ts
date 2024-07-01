@@ -13,122 +13,45 @@ import { ChartConfiguration, ChartData, ChartDataset, ChartOptions, ChartType } 
 import { SurveyQuestion, UserSurveyResponseData } from '../../models/user-survey-response-data.model';
 import { FormsModule } from '@angular/forms';
 import { TableUsersComponent } from '../../components/table-users/table-users.component';
-import { forkJoin } from 'rxjs';
+import { PieChartComponent } from '../../components/pie-chart/pie-chart.component';
 
 
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [FormsModule, BreadcrumbsComponent, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatIconModule, BaseChartDirective, MatCardModule, TableUsersComponent],
+  imports: [FormsModule, BreadcrumbsComponent, MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule, MatIconModule, BaseChartDirective, MatCardModule, TableUsersComponent, PieChartComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
 export default class DashboardComponent implements AfterViewInit {
 
 
-  surveyResponses1: UserSurveyResponseData[] = [];
-  surveyResponses2: UserSurveyResponseData[] = [];
-  surveyResponses3: UserSurveyResponseData[] = [];
-  surveyResponses4: UserSurveyResponseData[] = [];
-
-  surveyData: any[] = [];
-
-  
-
-  barChartOptions1: ChartConfiguration<'bar'>['options'] = {
-    responsive: true,
-    
-    plugins: {
-      legend: {
-        display: true,
-      },
-    },
-  };
-  barChartType1  = 'bar' as const;
-  barChartLegend1 = true;
-  barChartData1: any[] = [];
-  barChartLabels1 = ['Clima Laboral', 'Satisfacción Laboral', 'Evaluación por Desempeño', 'Evaluación por Competencias'];
-
-
   constructor(private dataService: DataService) { }
 
   ngAfterViewInit(): void {
-    this.fetchSurveyResponses();
     this.fetchAllSurveyResponses();
-
   }
 
-  calcularPuntuacionPromedio(responses: UserSurveyResponseData[]): number {
-    let totalSum = 0;
-    let count = 0;
-  
-    responses.forEach(response => {
-      response.questions.forEach(question => {
-        totalSum += question.selectedOption.value;
-        count++;
-      });
-    });
-  
-    if (count === 0) return 0; // Evitar división por cero
-  
-    return totalSum / count;
-  }
-
-  asignarClasificacion(promedio: number): string {
-    if (promedio >= 20 && promedio <= 39) {
-      return 'Muy bajo desempeño';
-    } else if (promedio >= 40 && promedio <= 59) {
-      return 'Bajo desempeño';
-    } else if (promedio >= 60 && promedio <= 79) {
-      return 'Desempeño aceptable';
-    } else if (promedio >= 80 && promedio <= 100) {
-      return 'Alto desempeño';
-    } else {
-      return 'Sin clasificación';
-    }
-  }
-
-
-  actualizarDatosGrafico(promedio: number, index: number): void {
-    const clasificacion = this.asignarClasificacion(promedio);
-    this.barChartData.push({ data: [promedio], label: clasificacion });
-  }
 
 
   fetchAllSurveyResponses() {
     this.dataService.getResponsesSurvey('lIATWyLizRdCXZxOCbjY').subscribe(data => {
-      this.surveyResponses1 = data;
-      const promedioEncuesta1 = this.calcularPuntuacionPromedio(data);
-      this.actualizarDatosGrafico(promedioEncuesta1, 0);
+      this.prepareChartData(data);
+      this.barChartData = this.processDataResponses(data);;
     });
-    
+
     this.dataService.getResponsesSurvey('PpXbEMSDTnSaaryZnl3y').subscribe(data => {
-      this.surveyResponses2 = data;
-      const promedioEncuesta2 = this.calcularPuntuacionPromedio(data);
-      this.actualizarDatosGrafico(promedioEncuesta2, 1);
+
     });
-    
-    this.dataService.getResponsesSurvey('M6JRYSj3qK4fF35y7U2Q').subscribe(data => {
-      this.surveyResponses3 = data;
-      const promedioEncuesta3 = this.calcularPuntuacionPromedio(data);
-      this.actualizarDatosGrafico(promedioEncuesta3, 2);
-    });
-    
+
+    this.dataService.getResponsesSurvey('M6JRYSj3qK4fF35y7U2Q').subscribe(data => { });
+
+
     this.dataService.getResponsesSurvey('QfkopBkUkpDAvKxTOd7J').subscribe(data => {
-      this.surveyResponses4 = data;
-      const promedioEncuesta4 = this.calcularPuntuacionPromedio(data);
-      this.actualizarDatosGrafico(promedioEncuesta4, 3);
     });
   }
 
-  fetchSurveyResponses() {
-    this.dataService.getResponsesSurvey('lIATWyLizRdCXZxOCbjY').subscribe(data => {
-      this.prepareChartData(data);
-      this.barChartData = this.processDataResponses(data);;
-      this.surveyResponses1 = data;
-    });
-  }
 
   /*========================================== */
   /*===================CHARTS================= */
@@ -218,11 +141,6 @@ export default class DashboardComponent implements AfterViewInit {
       ]
     }
   }
-
-
-
-
-
 
 }
 
