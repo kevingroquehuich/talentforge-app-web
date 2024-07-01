@@ -8,7 +8,6 @@ import {MatCardModule} from '@angular/material/card';
 import { BreadcrumbsComponent } from '../../../components/breadcrumbs/breadcrumbs.component';
 import { DataService } from '../../../services/data.service';
 import { CourseData, ModuleData, SectionModuleData } from '../../../models/course-data.model';
-import { map, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-course-detail',
