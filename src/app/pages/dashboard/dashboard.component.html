@@ -6,7 +6,24 @@
 
       <div class="row content">
         <div class="col-lg-6">
-          
+          <mat-card class="card-survey-1" appearance="raised">
+            <mat-card-header>
+              <mat-card-title>Nivel de satisfacción General</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div style="display: flex; justify-content: center;">
+                <div style="width: 80%;">
+                  <canvas baseChart
+                          [datasets]="barChartData1"
+                          [labels]="barChartLabels1"
+                          [options]="barChartOptions1"
+                          [legend]="barChartLegend1"
+                          [type]="barChartType1">
+                  </canvas>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
         </div>
 
         <div class="col-lg-6 pt-4 pt-lg-0">
