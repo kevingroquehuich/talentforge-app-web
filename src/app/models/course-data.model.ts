@@ -23,6 +23,7 @@ export interface SectionModuleData {
     name: string;
     type: string;
     file?: string;
+    filename?: string;
     video?: string;
     test?: string;
     order: number;

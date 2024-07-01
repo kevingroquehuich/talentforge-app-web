@@ -60,8 +60,18 @@
                                 <div>
                                     <h4>{{ sectionSelected.name }}</h4>
                                     @if (sectionSelected.type === 'resources') {
-                                        <p>Archivo de recursos: {{ sectionSelected.file }}</p>
-                                        <a href="{{ sectionSelected.file }}" target="_blank" download="{{ sectionSelected.name }}.pdf" >Descargar Archivo</a>
+                                        <mat-card appearance="outlined">
+                                            <mat-card-content class="card-content">
+                                              <div class="content-wrapper">
+                                                <i class="bi bi-file-earmark-pdf-fill icon-file"></i>
+                                                <span>{{ sectionSelected.filename }}</span>
+                                              </div>
+                                              <a href="{{ sectionSelected.file }}" target="_blank" download="{{ sectionSelected.filename }}" class="download">
+                                                <i class="bi bi-download"></i> Descargar
+                                              </a>
+                                            </mat-card-content>
+                                          </mat-card>
+                                        
 
                                     } @else {
                                         <p>Prueba de evaluación: {{ sectionSelected.test }}</p>

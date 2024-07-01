@@ -102,6 +102,26 @@ detalle-modulo-container {
   margin-left: 20px;
 }
 
+.card-content {
+  display: flex;
+  justify-content: space-between; /* Distribuye los elementos a lo largo del eje principal (horizontal) */
+  align-items: center; /* Alinea los elementos verticalmente en el centro */
+}
+
+.content-wrapper {
+  display: flex;
+  align-items: center; /* Alinea los elementos dentro de content-wrapper verticalmente */
+}
+
+.icon-file {
+  font-size: 32px;
+  margin-right: 10px;
+}
+
+.download {
+  margin-left: 10px; /* Ajusta el margen izquierdo según sea necesario */
+}
+
 /* Media query para pantallas más grandes */
 @media (min-width: 768px) {
   .grid-container {

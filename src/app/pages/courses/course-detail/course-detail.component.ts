@@ -4,6 +4,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
 import { BreadcrumbsComponent } from '../../../components/breadcrumbs/breadcrumbs.component';
 import { DataService } from '../../../services/data.service';
 import { CourseData, ModuleData, SectionModuleData } from '../../../models/course-data.model';
@@ -12,7 +13,7 @@ import { map, switchMap } from 'rxjs';
 @Component({
   selector: 'app-course-detail',
   standalone: true,
-  imports: [BreadcrumbsComponent, MatExpansionModule, MatProgressBarModule, MatIconModule, MatButtonModule],
+  imports: [BreadcrumbsComponent, MatExpansionModule, MatProgressBarModule, MatIconModule, MatButtonModule, MatCardModule],
   templateUrl: './course-detail.component.html',
   styleUrl: './course-detail.component.scss'
 })
@@ -21,11 +22,7 @@ export default class CourseDetailComponent implements OnInit{
   step = signal(0);
   moduleSelected: ModuleData | null = null;
   sectionSelected: SectionModuleData | null = null;
-
-
   course: CourseData | null = null;
-  //modulesCourse: ModuleData[] = [];
-  //sections: SectionModuleData[] = [];
 
 
   constructor(private route: ActivatedRoute, private dataService: DataService) {}
